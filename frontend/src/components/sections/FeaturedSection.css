@@ -1,0 +1,80 @@
+.cw-featured {
+  background: var(--chocolate);
+  padding: 80px 0;
+}
+@media (min-width: 768px) {
+  .cw-featured {
+    padding: 112px 0;
+  }
+}
+.cw-featured-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cw-featured-head h2 {
+  font-size: 32px;
+  color: var(--cream);
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .cw-featured-head h2 {
+    font-size: 38px;
+  }
+}
+.cw-featured-link {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.2s ease;
+}
+.cw-featured-link:hover {
+  color: var(--cream);
+}
+.cw-featured-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+@media (min-width: 768px) {
+  .cw-featured-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+}
+.cw-featured-card {
+  display: block;
+}
+.cw-featured-img {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 0 0 1px rgba(245, 230, 211, 0.1);
+}
+.cw-featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.cw-featured-card:hover .cw-featured-img img {
+  transform: scale(1.05);
+}
+.cw-featured-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 16px;
+}
+.cw-featured-info h3 {
+  font-size: 20px;
+  color: var(--cream);
+}
+.cw-featured-info span {
+  font-size: 18px;
+  white-space: nowrap;
+}

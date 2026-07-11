@@ -1,0 +1,184 @@
+/* ============================================================
+   Choco World Kosova — global theme
+   Palette locked from design: chocolate/cream/caramel/gold
+   ============================================================ */
+
+:root {
+  --chocolate-deep: #1a0f0a;
+  --chocolate: #2A1810;
+  --cream: #F5E6D3;
+  --paper: #FDF9F3;
+  --caramel: #C9883C;
+  --gold: #D4A95A;
+
+  --bg: var(--paper);
+  --text: var(--chocolate);
+  --border: rgba(42, 24, 16, 0.1);
+
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --shadow-soft: 0 1px 2px rgba(42, 24, 16, 0.04), 0 8px 24px rgba(42, 24, 16, 0.06);
+  --shadow-velvet: 0 10px 40px -10px rgba(26, 15, 10, 0.35);
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background-color: rgba(201, 136, 60, 0.25);
+  color: var(--chocolate);
+}
+
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.text-caramel {
+  color: var(--caramel);
+}
+.text-gold {
+  color: var(--gold);
+}
+.italic {
+  font-style: italic;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--caramel);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--chocolate);
+  color: var(--cream);
+}
+.btn-primary:hover {
+  background: var(--chocolate-deep);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--chocolate);
+  border: 1px solid rgba(42, 24, 16, 0.15);
+}
+.btn-outline:hover {
+  border-color: rgba(42, 24, 16, 0.4);
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+
+@keyframes velvet-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-velvet-reveal {
+  animation: velvet-reveal 0.55s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: 64px 0;
+  color: rgba(42, 24, 16, 0.5);
+  font-size: 14px;
+}
+.empty-state .hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(42, 24, 16, 0.35);
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+  font-size: 14px;
+}

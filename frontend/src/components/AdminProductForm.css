@@ -1,0 +1,74 @@
+.cw-pform {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cw-pform label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(42, 24, 16, 0.6);
+}
+.cw-pform input,
+.cw-pform select,
+.cw-pform textarea {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--chocolate);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.cw-pform input:focus,
+.cw-pform select:focus,
+.cw-pform textarea:focus {
+  outline: none;
+  border-color: var(--caramel);
+}
+.cw-pform-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 560px) {
+  .cw-pform-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.cw-pform-toggles {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-bottom: 2px;
+}
+.cw-pform-checkbox {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-weight: 400 !important;
+  color: var(--chocolate) !important;
+}
+.cw-pform-checkbox input {
+  width: auto;
+}
+.cw-pform-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
+.cw-pform-actions .btn {
+  padding: 11px 24px;
+  font-size: 14px;
+}

@@ -1,0 +1,63 @@
+.cw-auth-page {
+  min-height: calc(100vh - 64px - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px;
+}
+.cw-auth-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.cw-auth-head h1 {
+  font-size: 40px;
+  color: var(--chocolate);
+  margin-top: 4px;
+}
+.cw-auth-sub {
+  font-size: 14px;
+  color: rgba(42, 24, 16, 0.6);
+  margin-top: 8px;
+}
+.cw-auth-card {
+  width: 100%;
+  max-width: 424px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+.cw-auth-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(42, 24, 16, 0.55);
+}
+.cw-auth-card input {
+  padding: 13px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-size: 14px;
+  color: var(--chocolate);
+}
+.cw-auth-card input:focus {
+  outline: none;
+  border-color: var(--caramel);
+}
+.cw-auth-error {
+  font-size: 13px;
+  color: #b3261e;
+}
+.cw-auth-card .btn-block {
+  padding: 14px 28px;
+  font-size: 14px;
+}

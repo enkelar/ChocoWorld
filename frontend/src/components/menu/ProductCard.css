@@ -1,0 +1,34 @@
+.cw-product-card {
+  display: block;
+}
+.cw-product-img {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(42, 24, 16, 0.04);
+}
+.cw-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.cw-product-card:hover .cw-product-img img {
+  transform: scale(1.05);
+}
+.cw-product-info {
+  margin-top: 12px;
+  text-align: center;
+}
+.cw-product-info h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--chocolate);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cw-product-info p {
+  font-size: 14px;
+  margin-top: 4px;
+}

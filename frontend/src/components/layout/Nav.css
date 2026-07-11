@@ -1,0 +1,46 @@
+.cw-nav {
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.cw-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.cw-logo {
+  font-size: 20px;
+  color: var(--chocolate);
+}
+.cw-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 14px;
+}
+.cw-nav-links a {
+  color: var(--chocolate);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+.cw-nav-links a:hover,
+.cw-nav-links a.active {
+  opacity: 1;
+}
+.cw-admin-link {
+  color: var(--caramel) !important;
+  opacity: 1 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-size: 12px !important;
+}
+
+@media (max-width: 480px) {
+  .cw-nav-links {
+    gap: 16px;
+  }
+}

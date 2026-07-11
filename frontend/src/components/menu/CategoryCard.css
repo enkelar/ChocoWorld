@@ -1,0 +1,62 @@
+.cw-cat-card {
+  width: 100%;
+  text-align: left;
+  padding: 28px;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  background: rgba(245, 230, 211, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.25s ease;
+  font-family: inherit;
+}
+.cw-cat-card:hover {
+  background: rgba(245, 230, 211, 0.7);
+}
+.cw-cat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cw-cat-label {
+  font-size: 26px;
+  color: var(--chocolate);
+  text-transform: capitalize;
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .cw-cat-label {
+    font-size: 30px;
+  }
+}
+.cw-cat-tagline {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(42, 24, 16, 0.5);
+}
+.cw-cat-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cw-cat-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(42, 24, 16, 0.5);
+}
+.cw-cat-plus {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(42, 24, 16, 0.15);
+  color: var(--chocolate);
+}
+.cw-cat-plus svg {
+  width: 16px;
+  height: 16px;
+}

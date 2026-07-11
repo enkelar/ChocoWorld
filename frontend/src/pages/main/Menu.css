@@ -1,0 +1,36 @@
+.cw-menu-page {
+  padding: 64px 0 80px;
+}
+@media (min-width: 768px) {
+  .cw-menu-page {
+    padding: 80px 0;
+  }
+}
+.cw-menu-inner {
+  max-width: 640px;
+}
+.cw-menu-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.cw-menu-head h1 {
+  font-size: 36px;
+  color: var(--chocolate);
+  margin-bottom: 12px;
+}
+@media (min-width: 768px) {
+  .cw-menu-head h1 {
+    font-size: 44px;
+  }
+}
+.cw-menu-sub {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(42, 24, 16, 0.6);
+}
+.cw-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
