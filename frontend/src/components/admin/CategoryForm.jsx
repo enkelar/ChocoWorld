@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const EMPTY = { label: '', slug: '', tagline: '', description: '', displayOrder: 0 };
+const EMPTY = { label: "", slug: "", tagline: "", displayOrder: 0 };
 
 export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
-  const [form, setForm] = useState(() => (initial ? { ...EMPTY, ...initial } : EMPTY));
+  const [form, setForm] = useState(() => ({ ...EMPTY, ...(initial || {}) }));
 
   function update(field, value) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -25,14 +25,14 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
           <input
             required
             value={form.label}
-            onChange={(e) => update('label', e.target.value)}
+            onChange={(e) => update("label", e.target.value)}
           />
         </label>
         <label>
           Slug
           <input
             value={form.slug}
-            onChange={(e) => update('slug', e.target.value)}
+            onChange={(e) => update("slug", e.target.value)}
             placeholder="auto if left blank"
           />
         </label>
@@ -42,17 +42,8 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
         Tagline
         <input
           value={form.tagline}
-          onChange={(e) => update('tagline', e.target.value)}
+          onChange={(e) => update("tagline", e.target.value)}
           placeholder="Short line shown under the category title"
-        />
-      </label>
-
-      <label>
-        Description
-        <textarea
-          rows={3}
-          value={form.description}
-          onChange={(e) => update('description', e.target.value)}
         />
       </label>
 
@@ -61,7 +52,7 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
         <input
           type="number"
           value={form.displayOrder}
-          onChange={(e) => update('displayOrder', e.target.value)}
+          onChange={(e) => update("displayOrder", e.target.value)}
         />
       </label>
 
@@ -70,7 +61,11 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
           Cancel
         </button>
         <button type="submit" className="btn btn-primary" disabled={submitting}>
-          {submitting ? 'Saving…' : initial ? 'Save changes' : 'Create category'}
+          {submitting
+            ? "Saving…"
+            : initial
+              ? "Save changes"
+              : "Create category"}
         </button>
       </div>
     </form>

@@ -1,6 +1,7 @@
 import Product from '../models/productModel.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import slugify from '../utils/slugify.js';
+import { deleteR2ObjectByUrl } from '../services/r2Client.js';
 
 // GET /api/products?category=waffles
 export const getProducts = asyncHandler(async (req, res) => {
@@ -38,11 +39,19 @@ export const updateProduct = asyncHandler(async (req, res) => {
   const body = { ...req.body };
   if (body.name && !body.slug) body.slug = slugify(body.name);
 
+  const existing = await Product.findById(req.params.id);
+  if (!existing) return res.status(404).json({ message: 'Product not found' });
+
   const product = await Product.findByIdAndUpdate(req.params.id, body, {
     new: true,
     runValidators: true,
   });
-  if (!product) return res.status(404).json({ message: 'Product not found' });
+
+  // If the image was swapped out for a new one, clean up the old R2 file.
+  if (body.image !== undefined && body.image !== existing.image) {
+    await deleteR2ObjectByUrl(existing.image);
+  }
+
   res.json(product);
 });
 
@@ -50,5 +59,8 @@ export const updateProduct = asyncHandler(async (req, res) => {
 export const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   if (!product) return res.status(404).json({ message: 'Product not found' });
+
+  await deleteR2ObjectByUrl(product.image);
+
   res.json({ message: 'Product deleted' });
 });

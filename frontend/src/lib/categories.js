@@ -26,14 +26,14 @@ export async function fetchCategories() {
   return data;
 }
 
-export async function createCategory({ label, slug, tagline, description, displayOrder }) {
-  const created = await api.post('/categories', { label, slug, tagline, description, displayOrder });
+export async function createCategory({ label, slug, tagline, displayOrder }) {
+  const created = await api.post('/categories', { label, slug, tagline, displayOrder });
   cache = [...cache, created];
   return created;
 }
 
-export async function updateCategory(id, { label, slug, tagline, description, displayOrder }) {
-  const updated = await api.put(`/categories/${id}`, { label, slug, tagline, description, displayOrder });
+export async function updateCategory(id, { label, slug, tagline, displayOrder }) {
+  const updated = await api.put(`/categories/${id}`, { label, slug, tagline, displayOrder });
   cache = cache.map((c) => (c._id === id ? updated : c));
   return updated;
 }

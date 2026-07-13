@@ -8,16 +8,17 @@ import Category from './models/categoryModel.js';
 dotenv.config();
 
 const categories = [
-  { label: 'Breakfast',slug: "slug", tagline: 'Fresh starts, sweet mornings', displayOrder: 1 },
-  { label: 'Waffles',slug: "slug1", tagline: 'Golden, warm, irresistible', displayOrder: 2 },
-  { label: 'Crepes',slug: "slug2", tagline: 'Thin, soft, delicious', displayOrder: 3 },
-  { label: 'Pancakes',slug: "slug3",  tagline: 'Fluffy stacks of joy', displayOrder: 4 },
-  { label: 'Churros',slug: "slug4",  tagline: 'Crispy, sweet perfection', displayOrder: 5 },
-  { label: 'Cookie Pan',slug: "slug5",  tagline: 'Warm, gooey, homemade', displayOrder: 6 },
-  { label: 'Fruit Cups',slug: "slug6",  tagline: 'Fresh and refreshing bites', displayOrder: 7 },
-  { label: 'Brownie',slug: "slug7",  tagline: 'Rich chocolate moments', displayOrder: 8 },
-  { label: 'Cakes',slug: "slug8",  tagline: 'Sweet slices of happiness', displayOrder: 9 },
-  { label: 'Other',slug: "slug9",  tagline: 'More sweet surprises', displayOrder: 10 },
+  { label: 'Waffles', slug: 'waffles', tagline: 'Golden, warm, irresistible', displayOrder: 1 },
+  { label: 'Pancakes', slug: 'pancakes', tagline: 'Fluffy stacks of joy', displayOrder: 2 },
+  { label: 'Crepes', slug: 'crepes', tagline: 'Thin, soft, delicious', displayOrder: 3 },
+  { label: 'Cold Drinks', slug: 'cold-drinks', tagline: 'Iced & refreshing', displayOrder: 4 },
+  { label: 'Breakfast', slug: 'breakfast', tagline: 'Fresh starts, sweet mornings', displayOrder: 5 },
+  { label: 'Churros', slug: 'churros', tagline: 'Crispy, sweet perfection', displayOrder: 6 },
+  { label: 'Cookie Pan', slug: 'cookie-pan', tagline: 'Warm, gooey, homemade', displayOrder: 7 },
+  { label: 'Fruit Cups', slug: 'fruit-cups', tagline: 'Fresh and refreshing bites', displayOrder: 8 },
+  { label: 'Brownie', slug: 'brownie', tagline: 'Rich chocolate moments', displayOrder: 9 },
+  { label: 'Cakes', slug: 'cakes', tagline: 'Sweet slices of happiness', displayOrder: 10 },
+  { label: 'Other', slug: 'other', tagline: 'More sweet surprises', displayOrder: 11 },
 ];
 
 const products = [
@@ -31,6 +32,7 @@ const products = [
     ingredients: 'Belgian waffle batter, dark chocolate, butter',
     allergens: ['gluten', 'dairy', 'eggs'],
     featured: true,
+    displayOrder: 1,
   },
   {
     name: 'Forest Fruit Waffle',
@@ -39,6 +41,7 @@ const products = [
     price: 4.2,
     description: 'Golden waffle topped with mixed berries and whipped cream.',
     allergens: ['gluten', 'dairy'],
+    displayOrder: 2,
   },
   {
     name: 'Classic Cocoa Waffle',
@@ -47,6 +50,7 @@ const products = [
     price: 3.5,
     description: 'Traditional cocoa-dusted waffle served with fresh berries.',
     allergens: ['gluten', 'dairy'],
+    displayOrder: 3,
   },
 
   // Pancakes
@@ -60,6 +64,7 @@ const products = [
     ingredients: 'Buttermilk pancakes, salted caramel, roasted hazelnuts, butter',
     allergens: ['gluten', 'dairy', 'eggs', 'nuts'],
     featured: true,
+    displayOrder: 1,
   },
   {
     name: 'Berry Bliss Pancakes',
@@ -68,6 +73,7 @@ const products = [
     price: 4.5,
     description: 'Soft pancake stack with mixed berry compote.',
     allergens: ['gluten', 'dairy', 'eggs'],
+    displayOrder: 2,
   },
   {
     name: 'Choco Chip Stack',
@@ -76,6 +82,7 @@ const products = [
     price: 4.3,
     description: 'Buttermilk pancakes studded with dark chocolate chips.',
     allergens: ['gluten', 'dairy', 'eggs'],
+    displayOrder: 3,
   },
 
   // Crêpes
@@ -87,6 +94,7 @@ const products = [
     description: 'Delicate crêpe folded around hazelnut chocolate spread.',
     allergens: ['gluten', 'dairy', 'nuts'],
     featured: true,
+    displayOrder: 1,
   },
   {
     name: 'Banana Nutella Crêpe',
@@ -95,6 +103,7 @@ const products = [
     price: 3.9,
     description: 'Warm crêpe with banana slices and hazelnut chocolate.',
     allergens: ['gluten', 'dairy', 'nuts'],
+    displayOrder: 2,
   },
   {
     name: 'Strawberry Cream Crêpe',
@@ -103,6 +112,7 @@ const products = [
     price: 3.7,
     description: 'Light crêpe with fresh strawberries and whipped cream.',
     allergens: ['gluten', 'dairy'],
+    displayOrder: 3,
   },
 
   // Cold Drinks
@@ -114,6 +124,7 @@ const products = [
     description: 'Iced blended coffee with a caramel swirl.',
     allergens: ['dairy'],
     featured: true,
+    displayOrder: 1,
   },
   {
     name: 'Iced Mocha',
@@ -122,6 +133,7 @@ const products = [
     price: 3.3,
     description: 'Espresso, chocolate and cold milk over ice.',
     allergens: ['dairy'],
+    displayOrder: 2,
   },
   {
     name: 'Cold Brew',
@@ -130,6 +142,7 @@ const products = [
     price: 2.9,
     description: 'Slow-steeped, smooth cold brew coffee.',
     allergens: [],
+    displayOrder: 3,
   },
 ];
 
@@ -154,11 +167,10 @@ async function seed() {
       name: adminName,
       email: adminEmail,
       password: adminPassword,
-      isAdmin: true, // <-- use isAdmin, not role
+      isAdmin: true,
     });
     console.log(`Created admin user: ${adminEmail} / ${adminPassword}`);
   } else {
-    // If you want to ensure existing admin is actually admin:
     if (!existingAdmin.isAdmin) {
       existingAdmin.isAdmin = true;
       await existingAdmin.save();

@@ -14,14 +14,14 @@ export const getAllCategories = async (req, res) => {
 // POST create category (admin only)
 export const createCategory = async (req, res) => {
   try {
-    const { label, slug, tagline, description, displayOrder } = req.body;
+    const { label, slug, tagline, displayOrder } = req.body;
 
     const existing = slug ? await Category.findOne({ slug }) : null;
     if (existing) {
       return res.status(400).json({ message: 'A category with this slug already exists' });
     }
 
-    const category = new Category({ label, slug, tagline, description, displayOrder });
+    const category = new Category({ label, slug, tagline, displayOrder });
     await category.save();
     res.status(201).json(category);
   } catch (err) {
@@ -32,7 +32,7 @@ export const createCategory = async (req, res) => {
 // PUT update category (admin only)
 export const updateCategory = async (req, res) => {
   try {
-    const { label, slug, tagline, description, displayOrder } = req.body;
+    const { label, slug, tagline, displayOrder } = req.body;
     const category = await Category.findById(req.params.id);
     if (!category) return res.status(404).json({ message: 'Category not found' });
 
@@ -41,7 +41,6 @@ export const updateCategory = async (req, res) => {
     if (label !== undefined) category.label = label;
     if (slug !== undefined) category.slug = slug;
     if (tagline !== undefined) category.tagline = tagline;
-    if (description !== undefined) category.description = description;
     if (displayOrder !== undefined) category.displayOrder = displayOrder;
 
     await category.save();
