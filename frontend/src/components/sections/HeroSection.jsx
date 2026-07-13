@@ -12,7 +12,7 @@ export function HeroSection() {
             The Art of <span className="italic">Molten</span> Indulgence
           </h1>
           <p className="cw-hero-text">
-            Handcrafted Belgian chocolate meets artisan pastry craft in the heart of
+            Handcrafted Turkish chocolate meets artisan pastry craft in the heart of
             the city. Waffles, pancakes, crêpes and gelato — textures of silk and
             gold.
           </p>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCategories } from '../../hooks/useCategories';
+import { api } from '../../lib/api';
 import './AdminProductForm.css';
 
 const EMPTY = {
@@ -41,12 +42,11 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
   const [form, setForm] = useState(() =>
     initial ? normalizeProduct(initial) : EMPTY
   );
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
-  // Default to the first available category once categories arrive, if
-  // creating a new product and none is selected yet.
   useEffect(() => {
     if (categories?.length) {
-
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm((f) => (f.category ? f : { ...f, category: categories[0].slug }));
     }
@@ -54,6 +54,39 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
 
   function update(field, value) {
     setForm((f) => ({ ...f, [field]: value }));
+  }
+
+  async function handleFileChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadError('');
+    setUploading(true);
+    try {
+      // 1) Get presigned upload URL from your server
+      const { uploadURL, publicUrl } = await api.post('/uploads/image-url', {
+        contentType: file.type,
+      });
+
+      // 2) Upload file directly to R2 using the presigned URL
+      const putRes = await fetch(uploadURL, {
+        method: 'PUT',
+        headers: { 'Content-Type': file.type },
+        body: file,
+      });
+
+      if (!putRes.ok) {
+        throw new Error('Image upload to storage failed.');
+      }
+
+      // 3) Use the public URL in the form
+      update('image', publicUrl);
+    } catch (err) {
+      setUploadError(err.message || 'Upload failed');
+    } finally {
+      setUploading(false);
+      e.target.value = ''; // allow re-selecting the same file later
+    }
   }
 
   function handleSubmit(e) {
@@ -123,8 +156,28 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
           <input
             value={form.image}
             onChange={(e) => update('image', e.target.value)}
+            placeholder="Paste a URL, or upload a photo below"
           />
         </label>
+      </div>
+
+      <div className="cw-pform-upload">
+        {form.image && (
+          <div className="cw-pform-preview">
+            <img src={form.image} alt="Product preview" />
+          </div>
+        )}
+        <label className="cw-pform-upload-btn">
+          {uploading ? 'Uploading…' : 'Upload photo from device'}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            onChange={handleFileChange}
+            disabled={uploading}
+            hidden
+          />
+        </label>
+        {uploadError && <span className="cw-pform-error">{uploadError}</span>}
       </div>
 
       <label>
@@ -190,7 +243,7 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={submitting}
+          disabled={submitting || uploading}
         >
           {submitting ? 'Saving…' : initial ? 'Save changes' : 'Create product'}
         </button>

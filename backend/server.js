@@ -6,6 +6,7 @@ import errorHandler from './middleware/errorHandler.js';
 import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 const app = express();
 
 connectDB();
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 
 app.use('/api/categories', categoryRoutes);
+app.use('/api/uploads', uploadRoutes);
 
 
 app.use((req, res) => {

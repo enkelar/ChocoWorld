@@ -17,6 +17,27 @@ async function request(path, options = {}) {
   return data;
 }
 
+async function uploadRequest(path, formData, options = {}) {
+  const token = localStorage.getItem('cw_token');
+  const headers = {
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {}),
+  };
+
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...options,
+    method: options.method || 'POST',
+    headers,
+    body: formData,
+  });
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.message || 'Upload failed');
+  }
+  return data;
+}
+
 export const api = {
   get: (path, options) => request(path, options),
   post: (path, body, options) =>
@@ -24,4 +45,5 @@ export const api = {
   put: (path, body, options) =>
     request(path, { ...options, method: 'PUT', body: JSON.stringify(body) }),
   delete: (path, options) => request(path, { ...options, method: 'DELETE' }),
+  upload: (path, formData, options) => uploadRequest(path, formData, options),
 };
