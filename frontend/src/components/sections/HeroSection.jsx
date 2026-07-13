@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import heroImg from '../../assets/placeholder-hero.svg';
+import heroImg from '../../assets/ChocoHero.png';
 import './HeroSection.css';
 
 export function HeroSection() {
@@ -26,7 +26,6 @@ export function HeroSection() {
           </div>
         </div>
         <div className="cw-hero-image">
-          {/* Placeholder artwork — swap for real photography in src/assets */}
           <img
             src={heroImg}
             alt="Molten dark chocolate pouring over a golden Belgian waffle"

@@ -8,10 +8,16 @@ import Category from './models/categoryModel.js';
 dotenv.config();
 
 const categories = [
-  { label: 'Waffles', slug: 'waffles', tagline: 'Crisp Belgian, drenched in cocoa', displayOrder: 1 },
-  { label: 'Pancakes', slug: 'pancakes', tagline: 'Velvet stacks, soft and warm', displayOrder: 2 },
-  { label: 'Crêpes', slug: 'crepes', tagline: 'Thin, delicate, indulgent', displayOrder: 3 },
-  { label: 'Cold Drinks', slug: 'cold-drinks', tagline: 'Iced, blended, refreshing', displayOrder: 4 },
+  { label: 'Breakfast',slug: "slug", tagline: 'Fresh starts, sweet mornings', displayOrder: 1 },
+  { label: 'Waffles',slug: "slug1", tagline: 'Golden, warm, irresistible', displayOrder: 2 },
+  { label: 'Crepes',slug: "slug2", tagline: 'Thin, soft, delicious', displayOrder: 3 },
+  { label: 'Pancakes',slug: "slug3",  tagline: 'Fluffy stacks of joy', displayOrder: 4 },
+  { label: 'Churros',slug: "slug4",  tagline: 'Crispy, sweet perfection', displayOrder: 5 },
+  { label: 'Cookie Pan',slug: "slug5",  tagline: 'Warm, gooey, homemade', displayOrder: 6 },
+  { label: 'Fruit Cups',slug: "slug6",  tagline: 'Fresh and refreshing bites', displayOrder: 7 },
+  { label: 'Brownie',slug: "slug7",  tagline: 'Rich chocolate moments', displayOrder: 8 },
+  { label: 'Cakes',slug: "slug8",  tagline: 'Sweet slices of happiness', displayOrder: 9 },
+  { label: 'Other',slug: "slug9",  tagline: 'More sweet surprises', displayOrder: 10 },
 ];
 
 const products = [
@@ -148,11 +154,17 @@ async function seed() {
       name: adminName,
       email: adminEmail,
       password: adminPassword,
-      role: 'admin',
+      isAdmin: true, // <-- use isAdmin, not role
     });
     console.log(`Created admin user: ${adminEmail} / ${adminPassword}`);
   } else {
-    console.log('Admin user already exists, skipping creation.');
+    // If you want to ensure existing admin is actually admin:
+    if (!existingAdmin.isAdmin) {
+      existingAdmin.isAdmin = true;
+      await existingAdmin.save();
+      console.log('Updated existing user to be admin.');
+    }
+    console.log('Admin user already exists.');
   }
 
   await mongoose.disconnect();

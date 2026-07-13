@@ -6,7 +6,7 @@ export function Nav() {
     <header className="cw-nav">
       <div className="container cw-nav-inner">
         <Link to="/" className="cw-logo font-serif italic">
-          Choco World
+          ChocoWorld
         </Link>
         <nav className="cw-nav-links">
           <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>

@@ -1,8 +1,24 @@
 import { api } from './api';
 
-// Local cache so components that need a category synchronously (e.g. right
-// after a fetch elsewhere) can look one up without re-hitting the network.
-let cache = [];
+// lib/categories.js
+let cache = null;
+let inFlight = null;
+
+export async function fetchCategoriesCached() {
+  if (cache) return cache;
+  if (!inFlight) {
+    inFlight = fetchCategories().then((data) => {
+      cache = data;
+      inFlight = null;
+      return data;
+    });
+  }
+  return inFlight;
+}
+
+export function invalidateCategoriesCache() {
+  cache = null;
+}
 
 export async function fetchCategories() {
   const data = await api.get('/categories');
@@ -10,14 +26,14 @@ export async function fetchCategories() {
   return data;
 }
 
-export async function createCategory({ label, slug, tagline, displayOrder }) {
-  const created = await api.post('/categories', { label, slug, tagline, displayOrder });
+export async function createCategory({ label, slug, tagline, description, displayOrder }) {
+  const created = await api.post('/categories', { label, slug, tagline, description, displayOrder });
   cache = [...cache, created];
   return created;
 }
 
-export async function updateCategory(id, { label, slug, tagline, displayOrder }) {
-  const updated = await api.put(`/categories/${id}`, { label, slug, tagline, displayOrder });
+export async function updateCategory(id, { label, slug, tagline, description, displayOrder }) {
+  const updated = await api.put(`/categories/${id}`, { label, slug, tagline, description, displayOrder });
   cache = cache.map((c) => (c._id === id ? updated : c));
   return updated;
 }
@@ -27,8 +43,6 @@ export async function deleteCategory(id) {
   cache = cache.filter((c) => c._id !== id);
 }
 
-// Synchronous lookup against the last-fetched cache. Call fetchCategories()
-// first (e.g. on app load or menu page mount) to populate it.
 export function getCategory(slug) {
   return cache.find((c) => c.slug === slug);
 }

@@ -12,6 +12,7 @@ const categorySchema = new mongoose.Schema(
       trim: true,
     },
     tagline: { type: String, trim: true, default: '' },
+    description: { type: String, trim: true, default: '' },
     displayOrder: { type: Number, default: 0 },
   },
   { timestamps: true }

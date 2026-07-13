@@ -11,9 +11,20 @@ export function ContactSection() {
             <div className="cw-contact-row">
               <span className="cw-contact-bar" />
               <div>
-                <p className="cw-contact-label">Address</p>
+                <p className="cw-contact-label">Address 1</p>
                 <p>
-                  Rruga Garibaldi, nr. 12
+                  Prishtina Mall, Food Court
+                  <br />
+                  10000 Prishtinë, Kosova
+                </p>
+              </div>
+            </div>
+            <div className="cw-contact-row">
+              <span className="cw-contact-bar" />
+              <div>
+                <p className="cw-contact-label">Address 2</p>
+                <p>
+                  Palace of Youth and Sports
                   <br />
                   10000 Prishtinë, Kosova
                 </p>
@@ -34,7 +45,7 @@ export function ContactSection() {
               <span className="cw-contact-bar" />
               <div>
                 <p className="cw-contact-label">Get in touch</p>
-                <p>+383 — — — — —</p>
+                <p>+383 046 656 656</p>
                 <div className="cw-contact-social">
                   <a
                     href="https://www.instagram.com/chocoworldkosova/"
@@ -55,13 +66,24 @@ export function ContactSection() {
             </div>
           </div>
         </div>
-        <div className="cw-contact-map">
-          <iframe
-            title="Choco World Kosova map"
-            src="https://www.google.com/maps?q=Prishtina,Kosovo&output=embed"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+
+        <div className="cw-contact-maps">
+          <div className="cw-contact-map">
+            <iframe
+              title="Choco World Kosova - Prishtina Mall"
+              src="https://www.google.com/maps?q=Prishtina+Mall,Kosovo&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <div className="cw-contact-map">
+            <iframe
+              title="Choco World Kosova - Palace of Youth"
+              src="https://www.google.com/maps?q=Palace+of+Youth+and+Sports+Prishtina,Kosovo&output=embed"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </div>
     </section>

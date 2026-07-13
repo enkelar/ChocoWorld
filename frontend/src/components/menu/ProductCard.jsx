@@ -7,7 +7,7 @@ export function ProductCard({ product, index = 0 }) {
     <Link
       to={`/product/${product.slug}`}
       className="cw-product-card animate-velvet-reveal"
-      style={{ animationDelay: `${index * 60}ms` }}
+      style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="cw-product-img">
         <img src={product.image || placeholderWaffle} alt={product.name} loading="lazy" />

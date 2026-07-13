@@ -1,159 +1,173 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchCategories, createCategory, updateCategory, deleteCategory } from '../../lib/categories';
-import './CategoryManager.css';
-
-const EMPTY = { label: '', slug: '', tagline: '', displayOrder: 0 };
+import { useCategories } from '../../hooks/useCategories';
+import { invalidate } from '../../lib/fetchCache';
+import { CategoryForm } from '../../components/admin/CategoryForm';
+import { LoadingState } from '../../components/shared/States';
+import '../../pages/admin/AdminDashboard.css';
+import '../../components/admin/AdminProductForm.css';
 
 export default function CategoryManager() {
-  const [categories, setCategories] = useState([]);
-  const [form, setForm] = useState(EMPTY);
-  const [editingId, setEditingId] = useState(null);
+  const { data: categories, isLoading, isRefetching, refetch } = useCategories();
+  const [editing, setEditing] = useState(null); // null | 'new' | category
+  const [search, setSearch] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  async function loadCategories() {
-    try {
-      setLoading(true);
-      const data = await fetchCategories();
-      setCategories(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+  const filtered = useMemo(() => {
+    return (categories ?? []).filter((c) =>
+      c.label.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [categories, search]);
+
+  async function reload() {
+    invalidate('/categories');
+    await fetchCategories();
+    refetch();
   }
 
-  useEffect(() => {
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    loadCategories();
-  }, []);
-
-  function update(field, value) {
-    setForm((f) => ({ ...f, [field]: value }));
-  }
-
-  function resetForm() {
-    setForm(EMPTY);
-    setEditingId(null);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError('');
+  async function handleSubmit(values) {
     setSubmitting(true);
+    setError('');
     try {
-      const payload = { ...form, displayOrder: parseInt(form.displayOrder, 10) || 0 };
-      if (editingId) {
-        await updateCategory(editingId, payload);
+      if (editing && editing !== 'new') {
+        await updateCategory(editing._id, values);
       } else {
-        await createCategory(payload);
+        await createCategory(values);
       }
-      resetForm();
-      loadCategories();
+      setEditing(null);
+      await reload();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Could not save category');
     } finally {
       setSubmitting(false);
     }
   }
 
-  function handleEdit(category) {
-    setForm({
-      label: category.label,
-      slug: category.slug,
-      tagline: category.tagline || '',
-      displayOrder: category.displayOrder ?? 0,
-    });
-    setEditingId(category._id);
-  }
-
-  async function handleDelete(id) {
-    if (!window.confirm('Delete this category? Products using it must be reassigned first.')) return;
-    setError('');
+  async function handleDelete(cat) {
+    if (!window.confirm(`Delete "${cat.label}"? Products using it must be reassigned first.`)) return;
     try {
-      await deleteCategory(id);
-      loadCategories();
+      await deleteCategory(cat._id);
+      await reload();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Could not delete category');
     }
   }
 
   return (
-    <div className="cw-catmgr">
-      <h2>Manage Categories</h2>
-
-      {error && <p className="cw-catmgr-error">{error}</p>}
-
-      <form className="cw-catmgr-form" onSubmit={handleSubmit}>
-        <input
-          required
-          placeholder="Label (e.g. Waffles)"
-          value={form.label}
-          onChange={(e) => update('label', e.target.value)}
-        />
-        <input
-          placeholder="Slug (auto if left blank)"
-          value={form.slug}
-          onChange={(e) => update('slug', e.target.value)}
-        />
-        <input
-          placeholder="Tagline"
-          value={form.tagline}
-          onChange={(e) => update('tagline', e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Display order"
-          value={form.displayOrder}
-          onChange={(e) => update('displayOrder', e.target.value)}
-        />
-        <div className="cw-catmgr-actions">
-          <button type="submit" className="btn btn-primary" disabled={submitting}>
-            {submitting ? 'Saving…' : editingId ? 'Save changes' : 'Add category'}
-          </button>
-          {editingId && (
-            <button type="button" className="btn btn-outline" onClick={resetForm}>
-              Cancel
+    <main className="cw-dashboard">
+      <div className="container">
+        <div className="cw-dashboard-head">
+          <div>
+            <span className="eyebrow">Admin</span>
+            <h1 className="font-serif">Categories</h1>
+          </div>
+          <div className="cw-dashboard-actions">
+            <Link to="/admin" className="btn btn-outline">
+              Products
+            </Link>
+            <Link to="/menu" className="btn btn-outline">
+              View menu
+            </Link>
+            <button className="btn btn-primary" onClick={() => setEditing('new')}>
+              + New category
             </button>
-          )}
+          </div>
         </div>
-      </form>
 
-      {loading ? (
-        <p>Loading categories…</p>
-      ) : (
-        <table className="cw-catmgr-table">
-          <thead>
-            <tr>
-              <th>Label</th>
-              <th>Slug</th>
-              <th>Tagline</th>
-              <th>Order</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((cat) => (
-              <tr key={cat._id}>
-                <td>{cat.label}</td>
-                <td>{cat.slug}</td>
-                <td>{cat.tagline}</td>
-                <td>{cat.displayOrder}</td>
-                <td>
-                  <button className="btn btn-outline" onClick={() => handleEdit(cat)}>
-                    Edit
-                  </button>
-                  <button className="btn btn-outline" onClick={() => handleDelete(cat._id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="cw-dashboard-filters">
+          <input
+            className="cw-dashboard-search"
+            placeholder="Search by name…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {error && <p className="cw-dashboard-error">{error}</p>}
+
+        {isLoading ? (
+          <LoadingState label="Loading categories…" />
+        ) : (
+          <div className="cw-dashboard-table-wrap">
+            {isRefetching && (
+              <div className="cw-dashboard-refresh-hint">Updating…</div>
+            )}
+            <table className="cw-dashboard-table cw-catmgr-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th className="cw-catmgr-hide-mobile">Tagline</th>
+                  <th className="cw-center cw-catmgr-hide-mobile">Order</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((cat) => (
+                  <tr key={cat._id}>
+                    <td className="cw-dashboard-name">{cat.label}</td>
+                    <td className="cw-catmgr-hide-mobile">{cat.tagline}</td>
+                    <td className="cw-center cw-catmgr-hide-mobile">{cat.displayOrder}</td>
+                    <td>
+                      <div className="cw-dashboard-row-actions">
+                        <button className="cw-pill-btn" onClick={() => setEditing(cat)}>
+                          Edit
+                        </button>
+                        <button
+                          className="cw-pill-btn cw-pill-danger"
+                          onClick={() => handleDelete(cat)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {filtered.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="cw-dashboard-empty-row">
+                      No categories match your search.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {editing && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="cw-modal-overlay"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setEditing(null);
+          }}
+        >
+          <div className="cw-modal">
+            <div className="cw-modal-head">
+              <h2 className="font-serif">
+                {editing === 'new' ? 'New category' : `Edit · ${editing.label}`}
+              </h2>
+              <button
+                className="cw-modal-close"
+                onClick={() => setEditing(null)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+            <CategoryForm
+              initial={editing === 'new' ? null : editing}
+              submitting={submitting}
+              onSubmit={handleSubmit}
+              onCancel={() => setEditing(null)}
+            />
+          </div>
+        </div>
       )}
-    </div>
+    </main>
   );
 }

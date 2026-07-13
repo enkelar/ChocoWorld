@@ -4,7 +4,7 @@ import asyncHandler from '../utils/asyncHandler.js';
 
 export function signToken(user) {
   return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-    expiresIn: '7d',
+    expiresIn: '4h',
   });
 }
 

@@ -190,3 +190,19 @@
 .cw-modal-close:hover {
   color: var(--chocolate);
 }
+
+.cw-dashboard-refresh-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted, #888);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 640px) {
+  .cw-catmgr-hide-mobile {
+    display: none;
+  }
+
+  .cw-catmgr-table {
+    min-width: 0;
+  }
+}

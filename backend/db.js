@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
 export default async function connectDB() {
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/chocoworld';
+  const url = process.env.MONGO_URL || 'mongodb://localhost:27017/chocoworld';
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(url);
     console.log('MongoDB connected');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);

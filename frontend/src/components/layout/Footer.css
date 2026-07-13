@@ -1,51 +1,103 @@
 .cw-footer {
-  background: var(--chocolate-deep);
-  color: var(--cream);
-  padding: 56px 0;
+  background: var(--chocolate);
+  color: rgba(245, 230, 211, 0.4);
+  padding: 80px 24px;
+  border-top: 1px solid rgba(245, 230, 211, 0.05);
 }
+
 .cw-footer-inner {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 32px;
+  flex-direction: column;
+  gap: 64px;
 }
+
+.cw-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+@media (min-width: 768px) {
+  .cw-footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .cw-footer-title {
-  font-size: 20px;
-  margin-bottom: 12px;
+  color: var(--cream);
+  font-size: 24px;
+  margin-bottom: 24px;
 }
+
 .cw-footer-address {
   color: rgba(245, 230, 211, 0.7);
-  line-height: 1.6;
+  line-height: 1.7;
+  margin-bottom: 32px;
 }
+
+.cw-footer-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.cw-footer-hours-row {
+  display: flex;
+  justify-content: space-between;
+  max-width: 220px;
+}
+
+.cw-footer-hours-value {
+  color: rgba(245, 230, 211, 0.9);
+}
+
+.cw-footer-side {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
 .cw-footer-quote {
-  max-width: 420px;
-  text-align: right;
+  color: rgba(245, 230, 211, 0.6);
+  font-size: 18px;
+  line-height: 1.7;
 }
-.cw-footer-quote p {
-  color: rgba(245, 230, 211, 0.85);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
+
 .cw-footer-links {
   display: flex;
   gap: 24px;
-  justify-content: flex-end;
-}
-.cw-footer-links a {
-  color: var(--gold);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-}
-.cw-footer-links a:hover {
-  text-decoration: underline;
 }
 
-@media (max-width: 640px) {
-  .cw-footer-quote {
+.cw-footer-links a {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--gold);
+  color: var(--gold);
+  padding-bottom: 4px;
+}
+
+.cw-footer-bottom {
+  padding-top: 48px;
+  border-top: 1px solid rgba(245, 230, 211, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .cw-footer-bottom {
+    flex-direction: row;
     text-align: left;
   }
-  .cw-footer-links {
-    justify-content: flex-start;
-  }
+}
+
+.cw-footer-bottom span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(245, 230, 211, 0.3);
+  font-weight: 500;
 }

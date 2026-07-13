@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchCategories } from '../lib/categories';
+import { useCategories } from '../../hooks/useCategories';
 import './AdminProductForm.css';
 
 const EMPTY = {
@@ -15,49 +15,42 @@ const EMPTY = {
   available: true,
 };
 
+function normalizeProduct(initial) {
+  return {
+    ...EMPTY,
+    ...initial,
+    name: initial.name ?? '',
+    category: initial.category ?? '',
+    description: initial.description ?? '',
+    ingredients: initial.ingredients ?? '',
+    allergens: Array.isArray(initial.allergens)
+      ? initial.allergens.join(', ')
+      : '',
+    image: initial.image ?? '',
+    displayOrder: initial.displayOrder ?? 0,
+    price: initial.price ?? 0,
+    featured: !!initial.featured,
+    available: initial.available !== false,
+  };
+}
+
 export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
-  const [categories, setCategories] = useState([]);
-  const [categoriesLoading, setCategoriesLoading] = useState(true);
-  const [categoriesError, setCategoriesError] = useState('');
+  const { data: categories, isLoading: categoriesLoading, error: categoriesError } =
+    useCategories();
 
   const [form, setForm] = useState(() =>
-    initial
-      ? {
-          ...EMPTY,
-          ...initial,
-          allergens: (initial.allergens || []).join(', '),
-          displayOrder: initial.displayOrder ?? 0,
-        }
-      : EMPTY
+    initial ? normalizeProduct(initial) : EMPTY
   );
 
+  // Default to the first available category once categories arrive, if
+  // creating a new product and none is selected yet.
   useEffect(() => {
-    let active = true;
+    if (categories?.length) {
 
-    async function loadCategories() {
-      try {
-        setCategoriesLoading(true);
-        const data = await fetchCategories();
-        if (!active) return;
-        setCategories(data);
-
-        // Default to the first available category if creating a new
-        // product and none is selected yet.
-        setForm((f) =>
-          f.category ? f : { ...f, category: data[0]?.slug || '' }
-        );
-      } catch {
-        if (active) setCategoriesError('Could not load categories');
-      } finally {
-        if (active) setCategoriesLoading(false);
-      }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setForm((f) => (f.category ? f : { ...f, category: categories[0].slug }));
     }
-
-    loadCategories();
-    return () => {
-      active = false;
-    };
-  }, []);
+  }, [categories]);
 
   function update(field, value) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -76,12 +69,18 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     });
   }
 
+  const categoryList = categories ?? [];
+
   return (
     <form className="cw-pform" onSubmit={handleSubmit}>
       <div className="cw-pform-grid">
         <label>
           Name
-          <input required value={form.name} onChange={(e) => update('name', e.target.value)} />
+          <input
+            required
+            value={form.name}
+            onChange={(e) => update('name', e.target.value)}
+          />
         </label>
         <label>
           Category
@@ -92,16 +91,18 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
             disabled={categoriesLoading}
           >
             {categoriesLoading && <option value="">Loading categories…</option>}
-            {!categoriesLoading && categories.length === 0 && (
+            {!categoriesLoading && categoryList.length === 0 && (
               <option value="">No categories yet</option>
             )}
-            {categories.map((c) => (
+            {categoryList.map((c) => (
               <option key={c.slug} value={c.slug}>
                 {c.label || c.name}
               </option>
             ))}
           </select>
-          {categoriesError && <span className="cw-pform-error">{categoriesError}</span>}
+          {categoriesError && (
+            <span className="cw-pform-error">Could not load categories</span>
+          )}
         </label>
       </div>
 
@@ -119,8 +120,10 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
         </label>
         <label>
           Image URL
-         
-          <input value={form.image} onChange={(e) => update('image', e.target.value)} />
+          <input
+            value={form.image}
+            onChange={(e) => update('image', e.target.value)}
+          />
         </label>
       </div>
 
@@ -184,7 +187,11 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
         <button type="button" className="btn btn-outline" onClick={onCancel}>
           Cancel
         </button>
-        <button type="submit" className="btn btn-primary" disabled={submitting}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={submitting}
+        >
           {submitting ? 'Saving…' : initial ? 'Save changes' : 'Create product'}
         </button>
       </div>

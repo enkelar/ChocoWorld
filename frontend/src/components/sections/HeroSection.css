@@ -60,7 +60,7 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: var(--shadow-velvet);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 6.5 / 5;
 }
 @media (min-width: 768px) {
   .cw-hero-image {

@@ -37,16 +37,20 @@
 .cw-featured-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 32px;
+  justify-items: center;
 }
 @media (min-width: 768px) {
   .cw-featured-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 48px;
+    grid-template-columns: repeat(3, minmax(0, 450px));
+    justify-content: center;
+    gap: 36px;
   }
 }
 .cw-featured-card {
   display: block;
+  width: 100%;
+  max-width: 300px;
 }
 .cw-featured-img {
   border-radius: 12px;
@@ -67,11 +71,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
+  gap: 17px;
   margin-top: 16px;
 }
 .cw-featured-info h3 {
-  font-size: 20px;
+  font-size: 19px;
   color: var(--cream);
 }
 .cw-featured-info span {

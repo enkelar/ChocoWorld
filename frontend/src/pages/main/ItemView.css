@@ -1,13 +1,13 @@
 .cw-item-page {
-  padding: 40px 0 80px;
+  padding: 32px 0 64px;
 }
 @media (min-width: 768px) {
   .cw-item-page {
-    padding: 64px 0;
+    padding: 48px 0;
   }
 }
-.cw-item-inner {
-  max-width: 720px;
+.container.cw-item-inner {
+  max-width: 560px;
 }
 .cw-item-back {
   display: inline-flex;
@@ -15,13 +15,13 @@
   gap: 8px;
   font-size: 14px;
   color: rgba(42, 24, 16, 0.6);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .cw-item-back:hover {
   color: var(--chocolate);
 }
 .cw-item-card {
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
   box-shadow: 0 0 0 1px rgba(42, 24, 16, 0.1), var(--shadow-soft);
@@ -29,12 +29,12 @@
 }
 .cw-item-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 3;
   background: rgba(42, 24, 16, 0.05);
 }
 @media (min-width: 640px) {
   .cw-item-image {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
   }
 }
 .cw-item-image img {
@@ -43,11 +43,11 @@
   object-fit: cover;
 }
 .cw-item-body {
-  padding: 24px;
+  padding: 20px;
 }
 @media (min-width: 640px) {
   .cw-item-body {
-    padding: 40px;
+    padding: 28px;
   }
 }
 .cw-item-head {
@@ -55,34 +55,35 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 .cw-item-head h1 {
-  font-size: 30px;
+  font-size: 22px;
   color: var(--chocolate);
   margin-top: 4px;
 }
 @media (min-width: 640px) {
   .cw-item-head h1 {
-    font-size: 36px;
+    font-size: 26px;
   }
 }
 .cw-item-price {
-  font-size: 30px;
+  font-size: 22px;
   color: var(--chocolate);
 }
 .cw-item-desc {
+  font-size: 14px;
   color: rgba(42, 24, 16, 0.75);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 .cw-item-meta {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 18px;
   border-top: 1px solid rgba(42, 24, 16, 0.1);
-  padding-top: 24px;
+  padding-top: 18px;
 }
 @media (min-width: 640px) {
   .cw-item-meta {
@@ -95,10 +96,10 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(42, 24, 16, 0.4);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .cw-item-meta-text {
-  font-size: 14px;
+  font-size: 13px;
   color: rgba(42, 24, 16, 0.8);
   line-height: 1.6;
 }
@@ -108,7 +109,7 @@
   gap: 8px;
 }
 .cw-item-allergens span {
-  padding: 6px 10px;
+  padding: 5px 9px;
   background: rgba(42, 24, 16, 0.05);
   font-size: 11px;
   color: rgba(42, 24, 16, 0.7);
@@ -117,7 +118,7 @@
   letter-spacing: 0.08em;
 }
 .cw-item-unavailable {
-  margin-top: 24px;
+  margin-top: 20px;
   font-size: 14px;
   color: var(--destructive, #b3261e);
 }

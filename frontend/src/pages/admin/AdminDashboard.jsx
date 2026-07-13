@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useMenuProducts } from '../../hooks/useProducts';
 import { useCategories } from '../../hooks/useCategories';
-import { AdminProductForm } from '../../components/AdminProductForm';
+import { AdminProductForm } from '../../components/admin/AdminProductForm';
 import { LoadingState } from '../../components/shared/States';
 import { api } from '../../lib/api';
 import './AdminDashboard.css';
 
 export function AdminDashboard() {
   const { logout } = useAuth();
-  const { data: products, isLoading, refetch } = useMenuProducts();
+  const { data: products, isLoading, isRefetching, refetch } = useMenuProducts();
   const { data: categories } = useCategories();
   const [editing, setEditing] = useState(null); // null | 'new' | product
   const [submitting, setSubmitting] = useState(false);
@@ -63,10 +63,12 @@ export function AdminDashboard() {
             <h1 className="font-serif">Menu management</h1>
           </div>
           <div className="cw-dashboard-actions">
+            <Link to="/admin/categories" className="btn btn-outline">
+              Categories
+            </Link>
             <Link to="/menu" className="btn btn-outline">
               View menu
             </Link>
-            <Link to="/admin/categories">Categories</Link>
             <button className="btn btn-outline" onClick={logout}>
               Sign out
             </button>
@@ -103,6 +105,9 @@ export function AdminDashboard() {
           <LoadingState label="Loading products…" />
         ) : (
           <div className="cw-dashboard-table-wrap">
+            {isRefetching && (
+              <div className="cw-dashboard-refresh-hint">Updating…</div>
+            )}
             <table className="cw-dashboard-table">
               <thead>
                 <tr>
