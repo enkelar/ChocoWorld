@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 export function signToken(user) {
-  return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, {
     expiresIn: '4h',
   });
 }
@@ -22,7 +22,7 @@ export const login = asyncHandler(async (req, res) => {
 
   res.json({
     token: signToken(user),
-    user: { id: user._id, name: user.name, email: user.email, role: user.role },
+    user: { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin },
   });
 });
 
@@ -33,7 +33,7 @@ export const me = asyncHandler(async (req, res) => {
       id: req.user._id,
       name: req.user.name,
       email: req.user.email,
-      role: req.user.role,
+      isAdmin: req.user.isAdmin,
     },
   });
 });

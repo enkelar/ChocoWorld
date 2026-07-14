@@ -1,10 +1,11 @@
 import express from 'express';
 import { login, me } from '../controllers/authController.js';
 import { protect } from '../middleware/auth.js';
+import { loginLimiter } from '../middleware/rateLimiters.js';
 
 const router = express.Router();
 
-router.post('/login', login);
+router.post('/login', loginLimiter, login);
 router.get('/me', protect, me);
 
 export default router;

@@ -1,5 +1,6 @@
 import Category from '../models/categoryModel.js';
 import Product from '../models/productModel.js';
+import { invalidateMenuCache } from './menuController.js';
 
 // GET all categories (public - used by customer-facing menu)
 export const getAllCategories = async (req, res) => {
@@ -23,6 +24,7 @@ export const createCategory = async (req, res) => {
 
     const category = new Category({ label, slug, tagline, displayOrder });
     await category.save();
+    invalidateMenuCache();
     res.status(201).json(category);
   } catch (err) {
     res.status(400).json({ message: 'Failed to create category', error: err.message });
@@ -49,6 +51,7 @@ export const updateCategory = async (req, res) => {
       await Product.updateMany({ category: oldSlug }, { $set: { category: slug } });
     }
 
+    invalidateMenuCache();
     res.json(category);
   } catch (err) {
     res.status(400).json({ message: 'Failed to update category', error: err.message });
@@ -69,6 +72,7 @@ export const deleteCategory = async (req, res) => {
     }
 
     await category.deleteOne();
+    invalidateMenuCache();
     res.json({ message: 'Category deleted' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to delete category', error: err.message });

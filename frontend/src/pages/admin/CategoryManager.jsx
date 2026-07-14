@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchCategories, createCategory, updateCategory, deleteCategory } from '../../lib/categories';
+import { createCategory, updateCategory, deleteCategory } from '../../lib/categories';
 import { useCategories } from '../../hooks/useCategories';
 import { invalidate } from '../../lib/fetchCache';
 import { CategoryForm } from '../../components/admin/CategoryForm';
 import { LoadingState } from '../../components/shared/States';
+import { AdminModal } from '../../components/admin/AdminModal';
 import '../../pages/admin/AdminDashboard.css';
 import '../../components/admin/AdminProductForm.css';
 
@@ -23,7 +24,7 @@ export default function CategoryManager() {
 
   async function reload() {
     invalidate('/categories');
-    await fetchCategories();
+    invalidate('/menu');
     refetch();
   }
 
@@ -138,35 +139,17 @@ export default function CategoryManager() {
       </div>
 
       {editing && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="cw-modal-overlay"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setEditing(null);
-          }}
-        >
-          <div className="cw-modal">
-            <div className="cw-modal-head">
-              <h2 className="font-serif">
-                {editing === 'new' ? 'New category' : `Edit · ${editing.label}`}
-              </h2>
-              <button
-                className="cw-modal-close"
-                onClick={() => setEditing(null)}
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-            <CategoryForm
-              initial={editing === 'new' ? null : editing}
-              submitting={submitting}
-              onSubmit={handleSubmit}
-              onCancel={() => setEditing(null)}
-            />
-          </div>
-        </div>
+       <AdminModal
+         title={editing === 'new' ? 'New category' : `Edit · ${editing.label}`}
+         onClose={() => setEditing(null)}
+       >
+         <CategoryForm
+           initial={editing === 'new' ? null : editing}
+           submitting={submitting}
+           onSubmit={handleSubmit}
+           onCancel={() => setEditing(null)}
+         />
+       </AdminModal>
       )}
     </main>
   );

@@ -22,8 +22,7 @@ export function setInFlight(key, promise) {
     .finally(() => {
       if (inFlight.get(key) === promise) inFlight.delete(key);
     })
-    .catch(() => {}); // avoid a duplicate unhandled-rejection warning; the
-                       // real error is still surfaced to callers via load()
+    .catch(() => {}); // avoid a duplicate unhandled-rejection warning; 
 }
 
 export function invalidate(keyOrPrefix) {

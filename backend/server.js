@@ -3,10 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './db.js';
 import errorHandler from './middleware/errorHandler.js';
-import authRoutes from './routes/authRoutes.js';
-import productRoutes from './routes/productRoutes.js';
-import categoryRoutes from './routes/categoryRoutes.js';
-import uploadRoutes from './routes/uploadRoutes.js';
+import routes from './routes/index.js';
+
 const app = express();
 
 connectDB();
@@ -18,13 +16,7 @@ app.use(
 );
 app.use(express.json());
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-
-app.use('/api/categories', categoryRoutes);
-app.use('/api/uploads', uploadRoutes);
-
+app.use('/api', routes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });

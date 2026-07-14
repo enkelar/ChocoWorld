@@ -2,24 +2,24 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CategoryCard } from '../../components/menu/CategoryCard';
 import { LoadingState, EmptyState } from '../../components/shared/States';
-import { useCategories } from '../../hooks/useCategories';
-import { useMenuProducts } from '../../hooks/useProducts';
+import { useMenu } from '../../hooks/useMenu';
 import './Menu.css';
 
 export function Menu() {
-  const { data: products, isLoading: productsLoading } = useMenuProducts();
-  const { data: categories, isLoading: categoriesLoading } = useCategories();
+  const { data, isLoading } = useMenu();
   const navigate = useNavigate();
+
+  // Memoize categories and products
+  const categories = useMemo(() => data?.categories ?? [], [data]);
+  const products = useMemo(() => data?.products ?? [], [data]);
 
   const countByCategory = useMemo(() => {
     const map = new Map();
-    (products ?? []).forEach((p) => {
+    products.forEach((p) => {
       map.set(p.category, (map.get(p.category) ?? 0) + 1);
     });
     return map;
   }, [products]);
-
-  const isLoading = productsLoading || categoriesLoading;
 
   return (
     <main className="cw-menu-page">
@@ -33,7 +33,7 @@ export function Menu() {
         {isLoading && <LoadingState label="Preparing the menu…" />}
 
         <div className="cw-menu-list">
-          {(categories ?? []).map((cat) => (
+          {categories.map((cat) => (
             <CategoryCard
               key={cat.slug}
               category={cat}
@@ -43,14 +43,14 @@ export function Menu() {
           ))}
         </div>
 
-        {!isLoading && (categories?.length ?? 0) === 0 && (
+        {!isLoading && categories.length === 0 && (
           <EmptyState
             label="No categories yet"
             hint="An admin can add categories from the admin dashboard."
           />
         )}
 
-        {!isLoading && (categories?.length ?? 0) > 0 && (products?.length ?? 0) === 0 && (
+        {!isLoading && categories.length > 0 && products.length === 0 && (
           <EmptyState
             label="The menu is being prepared"
             hint="An admin can add products from the admin dashboard."

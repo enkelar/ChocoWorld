@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import placeholderWaffle from '../../assets/placeholder-waffle.svg';
+import { getPlaceholderImage } from '../../lib/placeholders'
 import './FeaturedSection.css';
 
 export function FeaturedSection({ products = [] }) {
@@ -16,7 +16,7 @@ export function FeaturedSection({ products = [] }) {
           {products.map((p) => (
             <Link key={p._id} to={`/product/${p.slug}`} className="cw-featured-card">
               <div className="cw-featured-img">
-                <img src={p.image || placeholderWaffle} alt={p.name} loading="lazy" />
+                <img src={p.image || getPlaceholderImage(p.category)} alt={p.name} loading="lazy" />
               </div>
               <div className="cw-featured-info">
                 <h3 className="font-serif">{p.name}</h3>

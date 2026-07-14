@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import heroImg from '../../assets/ChocoHero.png';
+import heroImg from '../../assets/ChocoHero.webp';
 import './HeroSection.css';
 
 export function HeroSection() {

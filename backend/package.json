@@ -21,6 +21,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
     "joi": "^18.2.3",
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.3",

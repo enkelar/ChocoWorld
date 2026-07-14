@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import placeholderWaffle from '../../assets/placeholder-waffle.svg';
+import { getPlaceholderImage } from '../../lib/placeholders';
 import './ProductCard.css';
 
 export function ProductCard({ product, index = 0 }) {
@@ -10,7 +10,7 @@ export function ProductCard({ product, index = 0 }) {
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="cw-product-img">
-        <img src={product.image || placeholderWaffle} alt={product.name} loading="lazy" />
+        <img src={product.image || getPlaceholderImage(product.category)} alt={product.name} loading="lazy" />
       </div>
       <div className="cw-product-info">
         <h3>{product.name}</h3>

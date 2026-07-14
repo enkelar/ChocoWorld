@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useProductBySlug } from '../../hooks/useProducts';
-import placeholderWaffle from '../../assets/placeholder-waffle.svg';
+import { getPlaceholderImage } from '../../lib/placeholders';
 import './ItemView.css';
 
 export function ItemView() {
@@ -38,7 +38,7 @@ export function ItemView() {
 
         <article className="cw-item-card">
           <div className="cw-item-image">
-            <img src={product.image || placeholderWaffle} alt={product.name} />
+            <img src={product.image || getPlaceholderImage(product.category)} alt={product.name} />
           </div>
           <div className="cw-item-body">
             <div className="cw-item-head">

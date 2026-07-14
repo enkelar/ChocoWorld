@@ -6,6 +6,8 @@ import { useCategories } from '../../hooks/useCategories';
 import { AdminProductForm } from '../../components/admin/AdminProductForm';
 import { LoadingState } from '../../components/shared/States';
 import { api } from '../../lib/api';
+import { invalidate } from '../../lib/fetchCache';
+import { AdminModal } from '../../components/admin/AdminModal';
 import './AdminDashboard.css';
 
 export function AdminDashboard() {
@@ -26,6 +28,11 @@ export function AdminDashboard() {
     });
   }, [products, filterCat, search]);
 
+  function invalidateProductCaches() {
+    invalidate('/products');
+    invalidate('/menu');
+  }
+
   async function handleSubmit(values) {
     setSubmitting(true);
     setError('');
@@ -35,6 +42,7 @@ export function AdminDashboard() {
       } else {
         await api.post('/products', values);
       }
+      invalidateProductCaches();
       setEditing(null);
       refetch();
     } catch (err) {
@@ -48,6 +56,7 @@ export function AdminDashboard() {
     if (!window.confirm(`Delete "${product.name}"? This cannot be undone.`)) return;
     try {
       await api.delete(`/products/${product._id}`);
+      invalidateProductCaches();
       refetch();
     } catch (err) {
       setError(err.message || 'Could not delete product');
@@ -172,35 +181,17 @@ export function AdminDashboard() {
       </div>
 
       {editing && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="cw-modal-overlay"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setEditing(null);
-          }}
+        <AdminModal
+          title={editing === 'new' ? 'New product' : `Edit · ${editing.name}`}
+          onClose={() => setEditing(null)}
         >
-          <div className="cw-modal">
-            <div className="cw-modal-head">
-              <h2 className="font-serif">
-                {editing === 'new' ? 'New product' : `Edit · ${editing.name}`}
-              </h2>
-              <button
-                className="cw-modal-close"
-                onClick={() => setEditing(null)}
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-            <AdminProductForm
-              initial={editing === 'new' ? null : editing}
-              submitting={submitting}
-              onSubmit={handleSubmit}
-              onCancel={() => setEditing(null)}
-            />
-          </div>
-        </div>
+          <AdminProductForm
+            initial={editing === 'new' ? null : editing}
+            submitting={submitting}
+            onSubmit={handleSubmit}
+            onCancel={() => setEditing(null)}
+          />
+        </AdminModal>
       )}
     </main>
   );
