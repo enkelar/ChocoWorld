@@ -101,3 +101,12 @@
   color: rgba(245, 230, 211, 0.3);
   font-weight: 500;
 }
+
+.cw-footer-admin-link {
+  display: none;
+}
+@media (max-width: 640px) {
+  .cw-footer-admin-link {
+    display: inline-block;
+  }
+}

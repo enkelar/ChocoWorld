@@ -6,7 +6,7 @@ import { useCategories } from '../../hooks/useCategories';
 import { AdminProductForm } from '../../components/admin/AdminProductForm';
 import { LoadingState } from '../../components/shared/States';
 import { api } from '../../lib/api';
-import { invalidate } from '../../lib/fetchCache';
+import { runMutation } from '../../lib/fetchCache';
 import { AdminModal } from '../../components/admin/AdminModal';
 import './AdminDashboard.css';
 
@@ -28,21 +28,16 @@ export function AdminDashboard() {
     });
   }, [products, filterCat, search]);
 
-  function invalidateProductCaches() {
-    invalidate('/products');
-    invalidate('/menu');
-  }
 
   async function handleSubmit(values) {
     setSubmitting(true);
     setError('');
     try {
       if (editing && editing !== 'new') {
-        await api.put(`/products/${editing._id}`, values);
+        await runMutation(() => api.put(`/products/${editing._id}`, values), ['/products', '/menu']);
       } else {
-        await api.post('/products', values);
+        await runMutation(() => api.post('/products', values), ['/products', '/menu']);
       }
-      invalidateProductCaches();
       setEditing(null);
       refetch();
     } catch (err) {
@@ -55,8 +50,7 @@ export function AdminDashboard() {
   async function handleDelete(product) {
     if (!window.confirm(`Delete "${product.name}"? This cannot be undone.`)) return;
     try {
-      await api.delete(`/products/${product._id}`);
-      invalidateProductCaches();
+      await runMutation(() => api.delete(`/products/${product._id}`), ['/products', '/menu']);
       refetch();
     } catch (err) {
       setError(err.message || 'Could not delete product');
@@ -122,9 +116,9 @@ export function AdminDashboard() {
                 <tr>
                   <th>Product</th>
                   <th>Category</th>
-                  <th className="cw-right">Price</th>
-                  <th className="cw-center">Featured</th>
-                  <th className="cw-center">Available</th>
+                  <th className="cw-right cw-dash-hide-mobile">Price</th>
+                  <th className="cw-center cw-dash-hide-mobile">Featured</th>
+                  <th className="cw-center cw-dash-hide-mobile">Available</th>
                   <th />
                 </tr>
               </thead>
@@ -145,11 +139,11 @@ export function AdminDashboard() {
                       </div>
                     </td>
                     <td className="cw-dashboard-cat">{p.category}</td>
-                    <td className="cw-right font-serif">€{p.price.toFixed(2)}</td>
-                    <td className="cw-center">
+                    <td className="cw-right font-serif cw-dash-hide-mobile">€{p.price.toFixed(2)}</td>
+                    <td className="cw-center cw-dash-hide-mobile">
                       {p.featured ? '★' : <span className="cw-dim">—</span>}
                     </td>
-                    <td className="cw-center">
+                    <td className="cw-center cw-dash-hide-mobile">
                       {p.available ? '✓' : <span className="cw-danger-text">off</span>}
                     </td>
                     <td>

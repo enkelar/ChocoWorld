@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 export function Footer() {
@@ -44,6 +45,9 @@ export function Footer() {
               >
                 Facebook
               </a>
+              <Link to="/admin" className="cw-footer-admin-link">
+                Admin
+              </Link>
             </div>
           </div>
         </div>

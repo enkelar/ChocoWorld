@@ -9,7 +9,20 @@ export const getProducts = asyncHandler(async (req, res) => {
   const filter = {};
   if (req.query.category) filter.category = req.query.category;
   // Sort by displayOrder first, then fall back to newest-first for items sharing the same order value.
-  const products = await Product.find(filter).sort({ displayOrder: 1, createdAt: -1 });
+  const query = Product.find(filter).sort({ displayOrder: 1, createdAt: -1 });
+  
+  const { page, limit } = req.query;
+  if (page || limit){
+    const pageNum = Math.max(parseInt(page,10) || 1, 1);
+    const limitNum = Math.min(Math.max(parseInt(limit, 10) || 20,1), 100);
+    cont [products, total] = await Promise.all([
+      query,skip((pageNum - 1)* limitNum).limit(limitNum),
+      Product.countDocuments(filter),
+    ]);
+    return res.json({products, total, page: pageNum, totalPages: Math.ceil(total / limitNum)});
+  }
+
+  const products = await query;
   res.json(products);
 });
 

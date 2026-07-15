@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createCategory, updateCategory, deleteCategory } from '../../lib/categories';
 import { useCategories } from '../../hooks/useCategories';
-import { invalidate } from '../../lib/fetchCache';
+import { runMutation } from '../../lib/fetchCache';
 import { CategoryForm } from '../../components/admin/CategoryForm';
 import { LoadingState } from '../../components/shared/States';
 import { AdminModal } from '../../components/admin/AdminModal';
@@ -22,23 +22,17 @@ export default function CategoryManager() {
     );
   }, [categories, search]);
 
-  async function reload() {
-    invalidate('/categories');
-    invalidate('/menu');
-    refetch();
-  }
-
   async function handleSubmit(values) {
     setSubmitting(true);
     setError('');
     try {
       if (editing && editing !== 'new') {
-        await updateCategory(editing._id, values);
+        await runMutation(() => updateCategory(editing._id, values), ['/categories', '/menu']);
       } else {
-        await createCategory(values);
+        await runMutation(() => createCategory(values), ['/categories', '/menu']);
       }
       setEditing(null);
-      await reload();
+      refetch();
     } catch (err) {
       setError(err.message || 'Could not save category');
     } finally {
@@ -49,8 +43,8 @@ export default function CategoryManager() {
   async function handleDelete(cat) {
     if (!window.confirm(`Delete "${cat.label}"? Products using it must be reassigned first.`)) return;
     try {
-      await deleteCategory(cat._id);
-      await reload();
+      await runMutation(() => deleteCategory(cat._id), ['/categories', '/menu']);
+      refetch();
     } catch (err) {
       setError(err.message || 'Could not delete category');
     }

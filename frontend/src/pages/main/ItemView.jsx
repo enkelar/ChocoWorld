@@ -1,12 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useProductBySlug } from '../../hooks/useProducts';
+import { useCategories } from '../../hooks/useCategories';
 import { getPlaceholderImage } from '../../lib/placeholders';
 import './ItemView.css';
 
 export function ItemView() {
   const { slug } = useParams();
   const { data: product, isLoading, error } = useProductBySlug(slug);
+  const { data: categories } = useCategories();
+
+  const categoryLabel =
+    categories?.find((c) => c.slug === product?.category)?.label ?? product?.category;
 
   if (isLoading) {
     return (
@@ -32,8 +37,8 @@ export function ItemView() {
   return (
     <main className="cw-item-page">
       <div className="container cw-item-inner">
-        <Link to="/menu" className="cw-item-back">
-          <span aria-hidden>←</span> Back to menu
+        <Link to={`/category/${product.category}`} className="cw-item-back">
+          <span aria-hidden>←</span> Back to {categoryLabel}
         </Link>
 
         <article className="cw-item-card">

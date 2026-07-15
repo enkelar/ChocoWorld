@@ -33,3 +33,9 @@ export function invalidate(keyOrPrefix) {
     if (k === keyOrPrefix || k.startsWith(keyOrPrefix)) inFlight.delete(k);
   }
 }
+
+export async function runMutation(mutationFn, keys = []) {
+  const result = await mutationFn();
+  keys.forEach((key) => invalidate(key));
+  return result;
+}

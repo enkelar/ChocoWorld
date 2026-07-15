@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
+import helmet from 'helmet';
 import connectDB from './db.js';
 import errorHandler from './middleware/errorHandler.js';
 import routes from './routes/index.js';
@@ -9,6 +11,8 @@ const app = express();
 
 connectDB();
 
+app.use(helmet());
+app.use(compression());
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
