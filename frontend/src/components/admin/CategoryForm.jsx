@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-const EMPTY = { label: "", slug: "", tagline: "", displayOrder: 0 };
+const EMPTY = { 
+  label: "", 
+  labelSq: "", 
+  slug: "", 
+  tagline: "", 
+  taglineSq: "", 
+  displayOrder: 0 
+};
 
 export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
   const [form, setForm] = useState(() => ({ ...EMPTY, ...(initial || {}) }));
@@ -19,15 +26,26 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
 
   return (
     <form className="cw-pform" onSubmit={handleSubmit}>
-      <div className="cw-pform-grid">
+     <div className="cw-pform-grid">
         <label>
-          Name
+          Name (English)
           <input
             required
             value={form.label}
             onChange={(e) => update("label", e.target.value)}
           />
         </label>
+        <label>
+          Name (Albanian)
+          <input
+            value={form.labelSq}
+            onChange={(e) => update("labelSq", e.target.value)}
+            placeholder="Emri në shqip"
+          />
+        </label>
+      </div>
+
+      <div className="cw-pform-grid">
         <label>
           Slug
           <input
@@ -36,25 +54,34 @@ export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
             placeholder="auto if left blank"
           />
         </label>
+        <label>
+          Display order
+          <input
+            type="number"
+            value={form.displayOrder}
+            onChange={(e) => update("displayOrder", e.target.value)}
+          />
+        </label>
       </div>
 
-      <label>
-        Tagline
-        <input
-          value={form.tagline}
-          onChange={(e) => update("tagline", e.target.value)}
-          placeholder="Short line shown under the category title"
-        />
-      </label>
-
-      <label>
-        Display order
-        <input
-          type="number"
-          value={form.displayOrder}
-          onChange={(e) => update("displayOrder", e.target.value)}
-        />
-      </label>
+      <div className="cw-pform-grid">
+        <label>
+          Tagline (English)
+          <input
+            value={form.tagline}
+            onChange={(e) => update("tagline", e.target.value)}
+            placeholder="Short line shown under the category title"
+          />
+        </label>
+        <label>
+          Tagline (Albanian)
+          <input
+            value={form.taglineSq}
+            onChange={(e) => update("taglineSq", e.target.value)}
+            placeholder="Nëntitulli në shqip"
+          />
+        </label>
+      </div>
 
       <div className="cw-pform-actions">
         <button type="button" className="btn btn-outline" onClick={onCancel}>

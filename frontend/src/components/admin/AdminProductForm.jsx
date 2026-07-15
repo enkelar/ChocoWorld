@@ -5,10 +5,13 @@ import './AdminProductForm.css';
 
 const EMPTY = {
   name: '',
+  nameSq: '',
   category: '',
   price: 0,
   description: '',
+  descriptionSq: '',
   ingredients: '',
+  ingredientsSq: '',
   allergens: '',
   image: '',
   displayOrder: 0,
@@ -21,9 +24,12 @@ function normalizeProduct(initial) {
     ...EMPTY,
     ...initial,
     name: initial.name ?? '',
+    nameSq: initial.nameSq ?? '',
     category: initial.category ?? '',
     description: initial.description ?? '',
+    descriptionSq: initial.descriptionSq ?? '',
     ingredients: initial.ingredients ?? '',
+    ingredientsSq: initial.ingredientsSq ?? '',
     allergens: Array.isArray(initial.allergens)
       ? initial.allergens.join(', ')
       : '',
@@ -108,11 +114,19 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     <form className="cw-pform" onSubmit={handleSubmit}>
       <div className="cw-pform-grid">
         <label>
-          Name
+          Name (English)
           <input
             required
             value={form.name}
             onChange={(e) => update('name', e.target.value)}
+          />
+        </label>
+        <label>
+          Name (Albanian)
+          <input
+            value={form.nameSq}
+            onChange={(e) => update('nameSq', e.target.value)}
+            placeholder="Emri në shqip"
           />
         </label>
         <label>
@@ -137,9 +151,6 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
             <span className="cw-pform-error">Could not load categories</span>
           )}
         </label>
-      </div>
-
-      <div className="cw-pform-grid">
         <label>
           Price (€)
           <input
@@ -151,6 +162,9 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
             onChange={(e) => update('price', e.target.value)}
           />
         </label>
+      </div>
+
+      <div className="cw-pform-grid">
         <label>
           Image URL
           <input
@@ -159,42 +173,59 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
             placeholder="Paste a URL, or upload a photo below"
           />
         </label>
-      </div>
-
-      <div className="cw-pform-upload">
-        {form.image && (
-          <div className="cw-pform-preview">
-            <img src={form.image} alt="Product preview" />
-          </div>
-        )}
-        <label className="cw-pform-upload-btn">
-          {uploading ? 'Uploading…' : 'Upload photo from device'}
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
-            onChange={handleFileChange}
-            disabled={uploading}
-            hidden
-          />
-        </label>
-        {uploadError && <span className="cw-pform-error">{uploadError}</span>}
+        <div className="cw-pform-upload">
+          {form.image && (
+            <div className="cw-pform-preview">
+              <img src={form.image} alt="Product preview" />
+            </div>
+          )}
+          <label className="cw-pform-upload-btn">
+            {uploading ? 'Uploading…' : 'Upload photo from device'}
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={handleFileChange}
+              disabled={uploading}
+              hidden
+            />
+          </label>
+          {uploadError && <span className="cw-pform-error">{uploadError}</span>}
+        </div>
       </div>
 
       <label>
-        Description
+        Description (English)
         <textarea
           rows={3}
           value={form.description}
           onChange={(e) => update('description', e.target.value)}
         />
       </label>
+      <label>
+        Description (Albanian)
+        <textarea
+          rows={3}
+          value={form.descriptionSq}
+          onChange={(e) => update('descriptionSq', e.target.value)}
+          placeholder="Përshkrimi në shqip"
+        />
+      </label>
 
       <label>
-        Ingredients
+        Ingredients (English)
         <textarea
           rows={2}
           value={form.ingredients}
           onChange={(e) => update('ingredients', e.target.value)}
+        />
+      </label>
+      <label>
+        Ingredients (Albanian)
+        <textarea
+          rows={2}
+          value={form.ingredientsSq}
+          onChange={(e) => update('ingredientsSq', e.target.value)}
+          placeholder="Përbërësit në shqip"
         />
       </label>
 

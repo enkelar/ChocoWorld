@@ -15,14 +15,14 @@ export const getAllCategories = async (req, res) => {
 // POST create category (admin only)
 export const createCategory = async (req, res) => {
   try {
-    const { label, slug, tagline, displayOrder } = req.body;
+    const { label, labelSq, slug, tagline,taglineSq, displayOrder } = req.body;
 
     const existing = slug ? await Category.findOne({ slug }) : null;
     if (existing) {
       return res.status(400).json({ message: 'A category with this slug already exists' });
     }
 
-    const category = new Category({ label, slug, tagline, displayOrder });
+    const category = new Category({ label, labelSq, slug, tagline, taglineSq, displayOrder });
     await category.save();
     invalidateMenuCache();
     res.status(201).json(category);
@@ -34,15 +34,17 @@ export const createCategory = async (req, res) => {
 // PUT update category (admin only)
 export const updateCategory = async (req, res) => {
   try {
-    const { label, slug, tagline, displayOrder } = req.body;
+    const { label, labelSq, slug, tagline, taglineSq, displayOrder } = req.body;
     const category = await Category.findById(req.params.id);
     if (!category) return res.status(404).json({ message: 'Category not found' });
 
     const oldSlug = category.slug;
 
     if (label !== undefined) category.label = label;
+    if (labelSq !== undefined) category.labelSq = labelSq;
     if (slug !== undefined) category.slug = slug;
     if (tagline !== undefined) category.tagline = tagline;
+    if (taglineSq !== undefined) category.taglineSq = taglineSq;
     if (displayOrder !== undefined) category.displayOrder = displayOrder;
 
     await category.save();

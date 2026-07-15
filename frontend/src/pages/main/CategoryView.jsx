@@ -4,10 +4,13 @@ import { ProductGrid } from '../../components/menu/ProductGrid';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useCategories } from '../../hooks/useCategories';
 import { useMenuProducts } from '../../hooks/useProducts';
+import { useLanguage } from '../../context/LanguageContext';
+import { localize } from '../../lib/localize';
 import './CategoryView.css';
 
 export function CategoryView() {
   const { slug } = useParams();
+  const { lang } = useLanguage();
   const { data: categories, isLoading: categoriesLoading } = useCategories();
   const { data: products, isLoading: productsLoading } = useMenuProducts(slug);
 
@@ -52,8 +55,8 @@ export function CategoryView() {
           <Link to="/menu" className="cw-category-back">
             ← All categories
           </Link>
-          <h1 className="font-serif">{category.label}</h1>
-          <p className="cw-category-tagline">{category.tagline}</p>
+          <h1 className="font-serif">{localize(category, 'label', lang)}</h1>
+          <p className="cw-category-tagline">{localize(category, 'tagline', lang)}</p>
         </div>
 
         {productsLoading && <LoadingState label="Preparing the menu…" />}

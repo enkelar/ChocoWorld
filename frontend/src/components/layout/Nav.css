@@ -25,6 +25,9 @@
   color: var(--chocolate);
   opacity: 0.75;
   transition: opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 .cw-nav-links a:hover,
 .cw-nav-links a.active {
@@ -38,6 +41,21 @@
   font-weight: 600;
   font-size: 12px !important;
 }
+.cw-lang-toggle {
+  border: 1px solid rgba(42, 24, 16, 0.15);
+  background: transparent;
+  color: var(--chocolate);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.cw-lang-toggle:hover {
+  border-color: var(--caramel);
+}
+
 
 @media (max-width: 480px) {
   .cw-nav-links {

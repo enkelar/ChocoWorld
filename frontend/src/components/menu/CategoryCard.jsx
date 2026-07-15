@@ -1,11 +1,15 @@
+import { useLanguage } from '../../context/LanguageContext';
+import { localize } from '../../lib/localize';
 import './CategoryCard.css';
 
 export function CategoryCard({ category, count, onClick }) {
+  const { lang } = useLanguage();
+
   return (
     <button type="button" onClick={onClick} className="cw-cat-card">
       <div className="cw-cat-info">
-        <span className="font-serif cw-cat-label">{category.label}</span>
-        <span className="cw-cat-tagline">{category.tagline}</span>
+        <span className="font-serif cw-cat-label">{localize(category, 'label', lang)}</span>
+        <span className="cw-cat-tagline">{localize(category, 'tagline', lang)}</span>
       </div>
       <div className="cw-cat-right">
         <span className="cw-cat-count">

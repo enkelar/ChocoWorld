@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useProductBySlug } from '../../hooks/useProducts';
 import { useCategories } from '../../hooks/useCategories';
+import { useLanguage } from '../../context/LanguageContext';
+import { localize } from '../../lib/localize';
 import { getPlaceholderImage } from '../../lib/placeholders';
 import './ItemView.css';
 
@@ -9,9 +11,10 @@ export function ItemView() {
   const { slug } = useParams();
   const { data: product, isLoading, error } = useProductBySlug(slug);
   const { data: categories } = useCategories();
-
-  const categoryLabel =
-    categories?.find((c) => c.slug === product?.category)?.label ?? product?.category;
+  const { lang } = useLanguage();
+  
+  const categoryObj = categories?.find((c) => c.slug === product?.category);
+  const categoryLabel = categoryObj ? localize(categoryObj, 'label', lang) : product?.category;
 
   if (isLoading) {
     return (
@@ -43,7 +46,7 @@ export function ItemView() {
 
         <article className="cw-item-card">
           <div className="cw-item-image">
-            <img src={product.image || getPlaceholderImage(product.category)} alt={product.name} />
+            <img src={product.image || getPlaceholderImage(product.category)} alt={localize(product, 'name', lang)} />
           </div>
           <div className="cw-item-body">
             <div className="cw-item-head">
@@ -51,20 +54,22 @@ export function ItemView() {
                 <span className="eyebrow" style={{ marginBottom: 4 }}>
                   {product.category}
                 </span>
-                <h1 className="font-serif">{product.name}</h1>
+                <h1 className="font-serif">{localize(product, 'name', lang)}</h1>
               </div>
               <span className="font-serif italic cw-item-price">
                 €{product.price.toFixed(2)}
               </span>
             </div>
 
-            {product.description && <p className="cw-item-desc">{product.description}</p>}
+            {localize(product, 'description', lang) && (
+              <p className="cw-item-desc">{localize(product, 'description', lang)}</p>
+            )}
 
             <div className="cw-item-meta">
-              {product.ingredients && (
+              {localize(product, 'ingredients', lang) && (
                 <div>
                   <p className="cw-item-meta-label">Ingredients</p>
-                  <p className="cw-item-meta-text">{product.ingredients}</p>
+                  <p className="cw-item-meta-text">{localize(product, 'ingredients', lang)}</p>
                 </div>
               )}
               {product.allergens?.length > 0 && (

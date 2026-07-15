@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { CategoryCard } from '../../components/menu/CategoryCard';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useMenu } from '../../hooks/useMenu';
+import { useLanguage } from '../../context/LanguageContext';
 import './Menu.css';
 
 export function Menu() {
   const { data, isLoading } = useMenu();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   // Memoize categories and products
@@ -25,12 +27,12 @@ export function Menu() {
     <main className="cw-menu-page">
       <div className="container cw-menu-inner">
         <div className="cw-menu-head">
-          <span className="eyebrow">Digital Menu</span>
-          <h1 className="font-serif">Choose your indulgence</h1>
-          <p className="cw-menu-sub">Tap a category to explore</p>
+          <span className="eyebrow">{t('menu_eyebrow')}</span>
+          <h1 className="font-serif">{t('menu_title')}</h1>
+          <p className="cw-menu-sub">{t('menu_sub')}</p>
         </div>
 
-        {isLoading && <LoadingState label="Preparing the menu…" />}
+        {isLoading && <LoadingState label={t('loading_menu')}  />}
 
         <div className="cw-menu-list">
           {categories.map((cat) => (
@@ -45,15 +47,15 @@ export function Menu() {
 
         {!isLoading && categories.length === 0 && (
           <EmptyState
-            label="No categories yet"
-            hint="An admin can add categories from the admin dashboard."
+            label={t('menu_empty_categories')}
+            hint={t('menu_empty_categories_hint')}
           />
         )}
 
         {!isLoading && categories.length > 0 && products.length === 0 && (
           <EmptyState
-            label="The menu is being prepared"
-            hint="An admin can add products from the admin dashboard."
+            label={t('menu_empty_products')}
+            hint={t('menu_empty_products_hint')}
           />
         )}
       </div>
