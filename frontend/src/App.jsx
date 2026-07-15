@@ -7,6 +7,7 @@ import { Menu } from './pages/main/Menu';
 import { CategoryView } from './pages/main/CategoryView';
 import { ItemView } from './pages/main/ItemView';
 import { LoadingState } from './components/shared/States';
+import { NotFound } from './pages/main/NotFound';
 
 const AdminAuth = lazy(() => import('./pages/admin/AdminAuth'));
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
@@ -41,6 +42,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
