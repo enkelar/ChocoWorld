@@ -5,12 +5,12 @@ import { ContactSection } from '../../components/sections/ContactSection';
 import { useFeaturedProducts } from '../../hooks/useProducts';
 
 export function Home() {
-  const { data: featured } = useFeaturedProducts();
+  const { data: featured, isLoading } = useFeaturedProducts();
 
   return (
     <div>
       <HeroSection />
-      <FeaturedSection products={featured ?? []} />
+      <FeaturedSection products={featured ?? []} isLoading={isLoading}  />
       <StorySection />
       <ContactSection />
     </div>

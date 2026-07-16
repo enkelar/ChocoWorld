@@ -40,6 +40,17 @@
   gap: 32px;
   justify-items: center;
 }
+.cw-featured-skeleton .cw-featured-img {
+  background: rgba(245, 230, 211, 0.08);
+}
+.cw-skeleton-line {
+  display: block;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(245, 230, 211, 0.12);
+  margin-top: 8px;
+}
+
 @media (min-width: 768px) {
   .cw-featured-grid {
     grid-template-columns: repeat(3, minmax(0, 450px));
