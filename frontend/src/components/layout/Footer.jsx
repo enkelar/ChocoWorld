@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import './Footer.css';
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="cw-footer">
       <div className="container cw-footer-inner">
         <div className="cw-footer-grid">
           <div>
-            <h4 className="font-serif cw-footer-title">Visit the Salon</h4>
+            <h4 className="font-serif cw-footer-title">{t('footer_visit_title')}</h4>
             <p className="cw-footer-address">
               Rruga Garibaldi, nr. 12
               <br />
@@ -15,11 +18,11 @@ export function Footer() {
             </p>
             <div className="cw-footer-hours">
               <div className="cw-footer-hours-row">
-                <span>Mon — Sun</span>
+                <span>{t('footer_hours_row1_label')}</span>
                 <span className="cw-footer-hours-value">09:00 – 23:00</span>
               </div>
               <div className="cw-footer-hours-row">
-                <span>Sat — Sun</span>
+                <span>{t('footer_hours_row2_label')}</span>
                 <span className="cw-footer-hours-value">09:00 – 23:00</span>
               </div>
             </div>
@@ -27,8 +30,7 @@ export function Footer() {
 
           <div className="cw-footer-side">
             <p className="font-serif italic cw-footer-quote">
-              "Chocolate is a language of its own — a silent conversation between the
-              artisan and the indulgence."
+              {t('footer_quote')}
             </p>
             <div className="cw-footer-links">
               <a
@@ -46,7 +48,7 @@ export function Footer() {
                 Facebook
               </a>
               <Link to="/admin" className="cw-footer-admin-link">
-                Admin
+                {t('nav_admin')}
               </Link>
             </div>
           </div>
@@ -54,7 +56,7 @@ export function Footer() {
 
         <div className="cw-footer-bottom">
           <span>© {new Date().getFullYear()} Choco World Kosova</span>
-          <span>Crafted with passion in Prishtinë</span>
+          <span>{t('footer_crafted')}</span>
         </div>
       </div>
     </footer>

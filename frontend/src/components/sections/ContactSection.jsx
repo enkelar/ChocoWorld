@@ -1,17 +1,20 @@
+import { useLanguage } from '../../context/LanguageContext';
 import './ContactSection.css';
 
 export function ContactSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="visit" className="cw-contact">
       <div className="container cw-contact-inner">
         <div className="cw-contact-copy">
-          <span className="eyebrow">Visit Us</span>
-          <h2 className="font-serif cw-contact-title">Come spend an afternoon.</h2>
+          <span className="eyebrow">{t('contact_eyebrow')}</span>
+          <h2 className="font-serif cw-contact-title">{t('contact_title')}</h2>
           <div className="cw-contact-list">
             <div className="cw-contact-row">
               <span className="cw-contact-bar" />
               <div>
-                <p className="cw-contact-label">Address 1</p>
+                <p className="cw-contact-label">{t('contact_label_address1')}</p>
                 <p>
                   Prishtina Mall, Food Court
                   <br />
@@ -22,9 +25,9 @@ export function ContactSection() {
             <div className="cw-contact-row">
               <span className="cw-contact-bar" />
               <div>
-                <p className="cw-contact-label">Address 2</p>
+                <p className="cw-contact-label">{t('contact_label_address2')}</p>
                 <p>
-                  Palace of Youth and Sports
+                  {t('contact_label_address_name')}
                   <br />
                   10000 Prishtinë, Kosova
                 </p>
@@ -33,18 +36,18 @@ export function ContactSection() {
             <div className="cw-contact-row">
               <span className="cw-contact-bar" />
               <div>
-                <p className="cw-contact-label">Hours</p>
+                <p className="cw-contact-label">{t('contact_label_hours')}</p>
                 <p>
-                  Mon – Fri · 08:00 – 22:00
+                  {t('contact_hours_line1')}
                   <br />
-                  Sat – Sun · 09:00 – 23:00
+                  {t('contact_hours_line2')}
                 </p>
               </div>
             </div>
             <div className="cw-contact-row">
               <span className="cw-contact-bar" />
               <div>
-                <p className="cw-contact-label">Get in touch</p>
+                <p className="cw-contact-label">{t('contact_label_contact')}</p>
                 <p>+383 046 656 656</p>
                 <div className="cw-contact-social">
                   <a

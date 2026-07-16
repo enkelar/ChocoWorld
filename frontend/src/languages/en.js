@@ -25,4 +25,28 @@ export default {
   item_allergens: 'Allergen notice',
   featured_title: 'Signature Series',
   featured_link: 'See full menu →',
+
+  story_eyebrow: 'ChocoWorld Kosova',
+  story_title:
+    "Explore the world's finest chocolate café & chain with rich flavors, pancakes, crêpes, brownies, gelato & more.",
+  contact_eyebrow: 'Visit Us',
+  contact_title: 'Come spend an afternoon.',
+  contact_label_address1: 'Address 1',
+  contact_label_address2: 'Address 2',
+  contact_label_address_name: 'Youth and Sports Center',
+  contact_label_hours: 'Hours',
+  contact_label_contact: 'Get in touch',
+  contact_hours_line1: 'Mon – Fri · 08:00 – 22:00',
+  contact_hours_line2: 'Sat – Sun · 09:00 – 23:00',
+  footer_visit_title: 'Visit the Salon',
+  footer_hours_row1_label: 'Mon — Sun',
+  footer_hours_row2_label: 'Sat — Sun',
+  footer_quote:
+    '"Chocolate is a language of its own — a silent conversation between the artisan and the indulgence."',
+  footer_crafted: 'Crafted with passion in Prishtinë',
+  category_not_found_hint: 'Try browsing the full menu.',
+  category_empty: 'Nothing here yet',
+  category_empty_hint: 'Check back soon.',
+  item_loading: 'Loading item…',
+  item_back_to: 'Back to',
 };

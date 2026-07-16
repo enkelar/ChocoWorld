@@ -10,7 +10,7 @@ import './CategoryView.css';
 
 export function CategoryView() {
   const { slug } = useParams();
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const { data: categories, isLoading: categoriesLoading } = useCategories();
   const { data: products, isLoading: productsLoading } = useMenuProducts(slug);
 
@@ -21,13 +21,11 @@ export function CategoryView() {
 
   const items = useMemo(() => products ?? [], [products]);
 
-  // Wait for categories to load before deciding the category doesn't exist —
-  // otherwise we'd flash "not found" on every page load.
   if (categoriesLoading) {
     return (
       <main className="cw-category-page">
         <div className="container">
-          <LoadingState label="Preparing the menu…" />
+          <LoadingState label={t('loading_menu')} />
         </div>
       </main>
     );
@@ -37,10 +35,10 @@ export function CategoryView() {
     return (
       <main className="cw-category-page">
         <div className="container">
-          <EmptyState label="Category not found" hint="Try browsing the full menu." />
+          <EmptyState label={t('category_not_found')} hint={t('category_not_found_hint')} />
           <div style={{ textAlign: 'center', marginTop: 24 }}>
             <Link to="/menu" className="text-caramel" style={{ textDecoration: 'underline' }}>
-              Back to menu
+              {t('back_to_menu')}
             </Link>
           </div>
         </div>
@@ -53,16 +51,16 @@ export function CategoryView() {
       <div className="container">
         <div className="cw-category-head">
           <Link to="/menu" className="cw-category-back">
-            ← All categories
+            {t('back_to_categories')}
           </Link>
           <h1 className="font-serif">{localize(category, 'label', lang)}</h1>
           <p className="cw-category-tagline">{localize(category, 'tagline', lang)}</p>
         </div>
 
-        {productsLoading && <LoadingState label="Preparing the menu…" />}
+        {productsLoading && <LoadingState label={t('loading_menu')} />}
 
         {!productsLoading && items.length === 0 && (
-          <EmptyState label="Nothing here yet" hint="Check back soon." />
+          <EmptyState label={t('category_empty')} hint={t('category_empty_hint')} />
         )}
 
         {items.length > 0 && <ProductGrid products={items} />}

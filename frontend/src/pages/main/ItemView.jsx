@@ -11,7 +11,7 @@ export function ItemView() {
   const { slug } = useParams();
   const { data: product, isLoading, error } = useProductBySlug(slug);
   const { data: categories } = useCategories();
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   
   const categoryObj = categories?.find((c) => c.slug === product?.category);
   const categoryLabel = categoryObj ? localize(categoryObj, 'label', lang) : product?.category;
@@ -19,7 +19,7 @@ export function ItemView() {
   if (isLoading) {
     return (
       <main className="cw-item-page">
-        <LoadingState label="Loading item…" />
+        <LoadingState label={t('item_loading')}  />
       </main>
     );
   }
@@ -27,10 +27,10 @@ export function ItemView() {
   if (error || !product) {
     return (
       <main className="cw-item-page">
-        <EmptyState label="Product not found" />
+        <EmptyState label={t('item_not_found')} />
         <div style={{ textAlign: 'center', marginTop: 24 }}>
           <Link to="/menu" className="text-caramel" style={{ textDecoration: 'underline' }}>
-            Back to menu
+            {t('back_to_menu')}
           </Link>
         </div>
       </main>
@@ -41,7 +41,7 @@ export function ItemView() {
     <main className="cw-item-page">
       <div className="container cw-item-inner">
         <Link to={`/category/${product.category}`} className="cw-item-back">
-          <span aria-hidden>←</span> Back to {categoryLabel}
+          <span aria-hidden>←</span> {t('item_back_to')} {categoryLabel}
         </Link>
 
         <article className="cw-item-card">
@@ -68,13 +68,13 @@ export function ItemView() {
             <div className="cw-item-meta">
               {localize(product, 'ingredients', lang) && (
                 <div>
-                  <p className="cw-item-meta-label">Ingredients</p>
+                  <p className="cw-item-meta-label">{t('item_ingredients')}</p>
                   <p className="cw-item-meta-text">{localize(product, 'ingredients', lang)}</p>
                 </div>
               )}
               {product.allergens?.length > 0 && (
                 <div>
-                  <p className="cw-item-meta-label">Allergen notice</p>
+                  <p className="cw-item-meta-label">{t('item_allergens')} </p>
                   <div className="cw-item-allergens">
                     {product.allergens.map((a) => (
                       <span key={a}>{a}</span>
@@ -85,7 +85,7 @@ export function ItemView() {
             </div>
 
             {!product.available && (
-              <p className="cw-item-unavailable">Currently unavailable.</p>
+              <p className="cw-item-unavailable">{t('item_unavailable')}</p>
             )}
           </div>
         </article>

@@ -13,7 +13,7 @@ export function FeaturedSection({ products = [], isLoading = false }) {
     <section className="cw-featured">
       <div className="container">
         <div className="cw-featured-head">
-          <h2 className="font-serif">Signature Series</h2>
+          <h2 className="font-serif">{t('featured_title')}</h2>
           <Link to="/menu" className="text-gold cw-featured-link">
             {t('featured_link')}
           </Link>
