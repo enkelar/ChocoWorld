@@ -3,7 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { ProtectedRoute } from './components/routing/ProtectedRoute';
 import { Home } from './pages/main/Home';
+import { About } from './pages/main/About';
 import { Menu } from './pages/main/Menu';
+import { BestSellers } from './pages/main/BestSellers';
 import { CategoryView } from './pages/main/CategoryView';
 import { ItemView } from './pages/main/ItemView';
 import { LoadingState } from './components/shared/States';
@@ -18,8 +20,10 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/category/:slug" element={<CategoryView />} />
+        <Route path="/best-sellers" element={<BestSellers />} />
         <Route path="/product/:slug" element={<ItemView />} />
         <Route path="/admin/login" element={<Suspense fallback={<LoadingState label="Loading…" />}><AdminAuth /></Suspense>}/>
         <Route

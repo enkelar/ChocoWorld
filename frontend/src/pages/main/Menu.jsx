@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BestSellersCard } from '../../components/menu/BestSellersCard';
 import { CategoryCard } from '../../components/menu/CategoryCard';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useMenu } from '../../hooks/useMenu';
@@ -23,6 +24,11 @@ export function Menu() {
     return map;
   }, [products]);
 
+  const bestSellersCount = useMemo(
+  () => products.filter((p) => p.bestSeller).length,
+  [products]
+);
+
   return (
     <main className="cw-menu-page">
       <div className="container cw-menu-inner">
@@ -35,6 +41,12 @@ export function Menu() {
         {isLoading && <LoadingState label={t('loading_menu')}  />}
 
         <div className="cw-menu-list">
+          {bestSellersCount > 0 && (
+            <BestSellersCard
+              count={bestSellersCount}
+              onClick={() => navigate('/best-sellers')}
+            />
+          )}
           {categories.map((cat) => (
             <CategoryCard
               key={cat.slug}

@@ -118,7 +118,7 @@ export function AdminDashboard() {
                   <th>Category</th>
                   <th className="cw-right cw-dash-hide-mobile">Price</th>
                   <th className="cw-center cw-dash-hide-mobile">Featured</th>
-                  <th className="cw-center cw-dash-hide-mobile">Available</th>
+                  <th className="cw-center cw-dash-hide-mobile">Best Seller</th>
                   <th />
                 </tr>
               </thead>
@@ -144,7 +144,7 @@ export function AdminDashboard() {
                       {p.featured ? '★' : <span className="cw-dim">—</span>}
                     </td>
                     <td className="cw-center cw-dash-hide-mobile">
-                      {p.available ? '✓' : <span className="cw-danger-text">off</span>}
+                      {p.bestSeller ? '★' : <span className="cw-danger-text">off</span>}
                     </td>
                     <td>
                       <div className="cw-dashboard-row-actions">

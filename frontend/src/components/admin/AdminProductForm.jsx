@@ -16,7 +16,7 @@ const EMPTY = {
   image: '',
   displayOrder: 0,
   featured: false,
-  available: true,
+  bestSeller: true,
 };
 
 function normalizeProduct(initial) {
@@ -37,7 +37,7 @@ function normalizeProduct(initial) {
     displayOrder: initial.displayOrder ?? 0,
     price: initial.price ?? 0,
     featured: !!initial.featured,
-    available: initial.available !== false,
+    bestSeller: initial.bestSeller !== false,
   };
 }
 
@@ -259,10 +259,10 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
           <label className="cw-pform-checkbox">
             <input
               type="checkbox"
-              checked={form.available}
-              onChange={(e) => update('available', e.target.checked)}
+              checked={form.bestSeller}
+              onChange={(e) => update('bestSeeller', e.target.checked)}
             />
-            Available
+            ★ Best Seller
           </label>
         </div>
       </div>

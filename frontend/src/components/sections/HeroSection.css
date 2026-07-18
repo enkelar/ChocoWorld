@@ -1,4 +1,5 @@
 .cw-hero {
+  margin-top: 55px;
   padding: 48px 0 96px;
   overflow: hidden;
 }
@@ -11,6 +12,10 @@
   display: flex;
   flex-direction: column;
   gap: 48px;
+}
+
+.cw-hero-copy .eyebrow {
+  margin-top: 20px;
 }
 @media (min-width: 768px) {
   .cw-hero-inner {

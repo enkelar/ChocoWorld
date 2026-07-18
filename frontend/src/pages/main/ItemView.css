@@ -117,8 +117,11 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
-.cw-item-unavailable {
+.cw-item-bestseller {
   margin-top: 20px;
-  font-size: 14px;
-  color: var(--destructive, #b3261e);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--caramel);
 }

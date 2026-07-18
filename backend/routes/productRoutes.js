@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProducts, getFeatured, getBySlug, createProduct, updateProduct, deleteProduct,}  from '../controllers/productController.js';
+import { getProducts, getFeatured,getBestSellers, getBySlug, createProduct, updateProduct, deleteProduct,}  from '../controllers/productController.js';
 import { protect, adminOnly } from '../middleware/auth.js';
 import { adminMutationLimiter } from '../middleware/rateLimiters.js';
 import { validate } from '../middleware/validate.js';
@@ -10,6 +10,7 @@ const router = express.Router();
 
 // /featured must be declared before the /:slug catch-all route, otherwise Express would treat "featured" as a slug.
 router.get('/featured', publicCache(30), getFeatured);
+router.get('/best-sellers', publicCache(30), getBestSellers);
 router.get('/',publicCache(30), getProducts);
 router.get('/:slug', publicCache(30), getBySlug);
 

@@ -1,0 +1,151 @@
+.cw-best-card {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  text-align: left;
+  padding: 30px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-family: inherit;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgb(72, 39, 24) 0%,
+      rgb(46, 23, 13) 55%,
+      rgba(46, 24, 15, 1) 100%
+    );
+
+  border: 1px solid rgba(212,169,90,.22);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.32),
+    inset 0 1px rgba(255,255,255,.05),
+    inset 0 -1px rgba(0,0,0,.25);
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+/* luxury shine */
+.cw-best-card::after{
+  content:"";
+  position:absolute;
+  top:-150%;
+  left:-40%;
+  width:35%;
+  height:300%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+  transform:rotate(22deg);
+  transition:left .8s ease;
+}
+
+.cw-best-card:hover{
+  transform:translateY(-4px);
+
+  border-color:rgba(212,169,90,.5);
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.42),
+    0 0 28px rgba(212,169,90,.08),
+    inset 0 1px rgba(255,255,255,.08);
+}
+
+.cw-best-card:hover::after{
+  left:125%;
+}
+
+.cw-best-info{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.cw-best-eyebrow{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.35em;
+  font-weight:600;
+  color:var(--gold);
+  opacity:.9;
+}
+
+.cw-best-label{
+  font-size:28px;
+  line-height:1.05;
+  font-weight:700;
+  color:var(--cream);
+  letter-spacing:-0.02em;
+}
+
+@media (min-width:768px){
+  .cw-best-label{
+    font-size:32px;
+  }
+}
+
+.cw-best-tagline{
+  font-size:12px;
+  color:rgba(245,230,211,.62);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.cw-best-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-shrink:0;
+}
+
+.cw-best-count{
+  font-size:12px;
+  color:rgba(245,230,211,.6);
+  letter-spacing:.08em;
+}
+
+.cw-best-plus{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
+
+  background: linear-gradient(
+  180deg,
+  #e2ceb1 0%,
+  #cfb28c 45%,
+  #b8956c 100%
+);
+
+  color:var(--chocolate-deep);
+
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.cw-best-card:hover .cw-best-plus{
+  transform:scale(1.08) rotate(90deg);
+}
+
+.cw-best-plus svg{
+  width:18px;
+  height:18px;
+}

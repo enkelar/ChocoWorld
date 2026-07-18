@@ -16,7 +16,7 @@ export const getMenu = asyncHandler(async (req, res) => {
 
   const [categories, products] = await Promise.all([
     Category.find().sort({ displayOrder: 1, label: 1 }),
-    Product.find({ available: true }).sort({ displayOrder: 1, createdAt: -1 }),
+    Product.find({}).sort({ displayOrder: 1, createdAt: -1 }),
   ]);
 
   const payload = { categories, products };

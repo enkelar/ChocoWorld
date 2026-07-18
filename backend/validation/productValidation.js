@@ -14,7 +14,7 @@ export const productCreateSchema = Joi.object({
   image: Joi.string().uri().allow('', null),
   displayOrder: Joi.number().integer(),
   featured: Joi.boolean(),
-  available: Joi.boolean(),
+  bestSeller: Joi.boolean(),
 });
 
 

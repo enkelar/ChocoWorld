@@ -37,9 +37,16 @@ export const getProducts = asyncHandler(async (req, res) => {
 
 // GET /api/products/featured
 export const getFeatured = asyncHandler(async (req, res) => {
-  const products = await Product.find({ featured: true, available: true })
+  const products = await Product.find({ featured: true })
     .sort({ displayOrder: 1, createdAt: -1 })
     .limit(6);
+  res.json(products);
+});
+
+// GET /api/products/best-sellers
+export const getBestSellers = asyncHandler(async (req, res) => {
+  const products = await Product.find({ bestSeller: true })
+    .sort({ displayOrder: 1, createdAt: -1 });
   res.json(products);
 });
 

@@ -1,15 +1,16 @@
 export default {
   nav_home: 'Home',
+  nav_about: 'About',
   nav_menu: 'Menu',
   nav_admin: 'Admin',
   hero_eyebrow: 'Prishtinë, Kosova',
   hero_title: 'The Art of Molten Indulgence',
   hero_text:
-    'Handcrafted Turkish chocolate meets artisan pastry craft in the heart of the city. Waffles, pancakes, crêpes and gelato — textures of silk and gold.',
+    'Handcrafted chocolate meets artisan pastry craft in the heart of the city. Waffles, pancakes, crêpes and gelato — textures of silk and gold.',
   hero_cta_menu: 'Open Digital Menu',
   hero_cta_visit: 'Visit Us',
   menu_eyebrow: 'Digital Menu',
-  menu_title: 'Choose your indulgence',
+  menu_title: 'Choose your treat',
   menu_sub: 'Tap a category to explore',
   menu_empty_categories: 'No categories yet',
   menu_empty_categories_hint: 'An admin can add categories from the admin dashboard.',
@@ -25,6 +26,8 @@ export default {
   item_allergens: 'Allergen notice',
   featured_title: 'Signature Series',
   featured_link: 'See full menu →',
+  best_sellers_title: 'Best Sellers',
+ best_sellers_tagline: 'Tap to see what everyone loves',
 
   story_eyebrow: 'ChocoWorld Kosova',
   story_title:
@@ -36,11 +39,9 @@ export default {
   contact_label_address_name: 'Youth and Sports Center',
   contact_label_hours: 'Hours',
   contact_label_contact: 'Get in touch',
-  contact_hours_line1: 'Mon – Fri · 08:00 – 22:00',
-  contact_hours_line2: 'Sat – Sun · 09:00 – 23:00',
-  footer_visit_title: 'Visit the Salon',
+  contact_hours_line1: 'Mon – Sun · 08:30 – 23:00',
+  footer_visit_title: 'Visit Us',
   footer_hours_row1_label: 'Mon — Sun',
-  footer_hours_row2_label: 'Sat — Sun',
   footer_quote:
     '"Chocolate is a language of its own — a silent conversation between the artisan and the indulgence."',
   footer_crafted: 'Crafted with passion in Prishtinë',

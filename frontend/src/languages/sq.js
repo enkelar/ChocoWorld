@@ -1,5 +1,6 @@
 export default {
   nav_home: 'Ballina',
+  nav_about: 'Rreth Nesh',
   nav_menu: 'Menuja',
   nav_admin: 'Admin',
   hero_eyebrow: 'Prishtinë, Kosovë',
@@ -25,6 +26,8 @@ export default {
   item_allergens: 'Njoftim për alergjenë',
   featured_title: 'Specialitetet tona',
   featured_link: 'Shiko menunë e plotë →',
+  best_sellers_title: 'Më të Kërkuarat',
+ best_sellers_tagline: 'Prek për të parë çfarë duan të gjithë',
 
    story_eyebrow: 'ChocoWorld Kosova',
   story_title:

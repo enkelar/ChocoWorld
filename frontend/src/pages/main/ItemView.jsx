@@ -84,8 +84,8 @@ export function ItemView() {
               )}
             </div>
 
-            {!product.available && (
-              <p className="cw-item-unavailable">{t('item_unavailable')}</p>
+            {!product.bestSeller && (
+              <p className="cw-item-bestSeller">★ Best Seller</p>
             )}
           </div>
         </article>

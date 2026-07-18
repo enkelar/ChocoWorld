@@ -12,3 +12,7 @@ export function useFeaturedProducts() {
 export function useProductBySlug(slug) {
   return useFetch(slug ? `/products/${slug}` : null);
 }
+
+export function useBestSellers() {
+  return useFetch('/products/best-sellers');
+}

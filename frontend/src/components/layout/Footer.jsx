@@ -19,12 +19,9 @@ export function Footer() {
             <div className="cw-footer-hours">
               <div className="cw-footer-hours-row">
                 <span>{t('footer_hours_row1_label')}</span>
-                <span className="cw-footer-hours-value">09:00 – 23:00</span>
+                <span className="cw-footer-hours-value">08:30 – 23:00</span>
               </div>
-              <div className="cw-footer-hours-row">
-                <span>{t('footer_hours_row2_label')}</span>
-                <span className="cw-footer-hours-value">09:00 – 23:00</span>
-              </div>
+              
             </div>
           </div>
 
@@ -33,6 +30,13 @@ export function Footer() {
               {t('footer_quote')}
             </p>
             <div className="cw-footer-links">
+              <a
+                href="https://www.tiktok.com/@chocoworldkosova"
+                target="_blank"
+                rel="noreferrer"
+              >
+                TikTok
+              </a>
               <a
                 href="https://www.instagram.com/chocoworldkosova/"
                 target="_blank"
