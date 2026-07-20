@@ -5,11 +5,8 @@ import './AdminProductForm.css';
 
 const EMPTY = {
   name: '',
-  nameSq: '',
   category: '',
   price: 0,
-  description: '',
-  descriptionSq: '',
   ingredients: '',
   ingredientsSq: '',
   allergens: '',
@@ -24,10 +21,7 @@ function normalizeProduct(initial) {
     ...EMPTY,
     ...initial,
     name: initial.name ?? '',
-    nameSq: initial.nameSq ?? '',
     category: initial.category ?? '',
-    description: initial.description ?? '',
-    descriptionSq: initial.descriptionSq ?? '',
     ingredients: initial.ingredients ?? '',
     ingredientsSq: initial.ingredientsSq ?? '',
     allergens: Array.isArray(initial.allergens)
@@ -114,19 +108,11 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     <form className="cw-pform" onSubmit={handleSubmit}>
       <div className="cw-pform-grid">
         <label>
-          Name (English)
+          Name
           <input
             required
             value={form.name}
             onChange={(e) => update('name', e.target.value)}
-          />
-        </label>
-        <label>
-          Name (Albanian)
-          <input
-            value={form.nameSq}
-            onChange={(e) => update('nameSq', e.target.value)}
-            placeholder="Emri në shqip"
           />
         </label>
         <label>
@@ -193,23 +179,7 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
         </div>
       </div>
 
-      <label>
-        Description (English)
-        <textarea
-          rows={3}
-          value={form.description}
-          onChange={(e) => update('description', e.target.value)}
-        />
-      </label>
-      <label>
-        Description (Albanian)
-        <textarea
-          rows={3}
-          value={form.descriptionSq}
-          onChange={(e) => update('descriptionSq', e.target.value)}
-          placeholder="Përshkrimi në shqip"
-        />
-      </label>
+
 
       <label>
         Ingredients (English)

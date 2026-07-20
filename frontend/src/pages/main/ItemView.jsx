@@ -61,9 +61,7 @@ export function ItemView() {
               </span>
             </div>
 
-            {localize(product, 'description', lang) && (
-              <p className="cw-item-desc">{localize(product, 'description', lang)}</p>
-            )}
+
 
             <div className="cw-item-meta">
               {localize(product, 'ingredients', lang) && (
