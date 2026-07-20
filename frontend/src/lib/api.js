@@ -1,14 +1,21 @@
 const BASE_URL = '/api';
 
+function shouldAuth(options) {
+  if (typeof options.auth === 'boolean') return options.auth;
+  // Default: only non-GET requests carry the token (admin mutations).
+  return !!options.method && options.method !== 'GET';
+}
+
 async function request(path, options = {}) {
-  const token = localStorage.getItem('cw_token');
+  const auth = shouldAuth(options);
+  const token = auth ? localStorage.getItem('cw_token') : null;
   const headers = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...(options.headers || {}),
   };
 
-  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
+  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers, cache: 'no-store' });
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
@@ -18,7 +25,8 @@ async function request(path, options = {}) {
 }
 
 async function uploadRequest(path, formData, options = {}) {
-  const token = localStorage.getItem('cw_token');
+  const auth = shouldAuth({ method: options.method || 'POST', ...options });
+  const token = auth ? localStorage.getItem('cw_token') : null;
   const headers = {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...(options.headers || {}),

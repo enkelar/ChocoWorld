@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
+import { ScrollToTop } from './components/shared/ScrollToTop';
 import { ProtectedRoute } from './components/routing/ProtectedRoute';
 import { Home } from './pages/main/Home';
 import { About } from './pages/main/About';
@@ -17,6 +18,8 @@ const CategoryManager = lazy(() => import('./pages/admin/CategoryManager'));
 
 function App() {
   return (
+  <>
+   <ScrollToTop />
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
@@ -49,6 +52,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+  </>
   );
 }
 

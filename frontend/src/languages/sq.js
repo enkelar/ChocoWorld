@@ -11,7 +11,7 @@ export default {
   hero_cta_visit: 'Na Vizitoni',
   menu_eyebrow: 'Menu Digjitale',
   menu_title: 'Zgjidh kënaqësinë tënde',
-  menu_sub: 'Prek një kategori për të eksploruar',
+  menu_sub: 'Zgjedh një kategori për të eksploruar',
   menu_empty_categories: 'Ende nuk ka kategori',
   menu_empty_categories_hint: 'Një admin mund të shtojë kategori nga paneli i administrimit.',
   menu_empty_products: 'Menuja po përgatitet',

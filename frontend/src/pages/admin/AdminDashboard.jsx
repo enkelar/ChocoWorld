@@ -141,10 +141,10 @@ export function AdminDashboard() {
                     <td className="cw-dashboard-cat">{p.category}</td>
                     <td className="cw-right font-serif cw-dash-hide-mobile">€{p.price.toFixed(2)}</td>
                     <td className="cw-center cw-dash-hide-mobile">
-                      {p.featured ? '★' : <span className="cw-dim">—</span>}
+                      {p.featured ? '✔' : <span className="cw-danger-text">—</span>}
                     </td>
                     <td className="cw-center cw-dash-hide-mobile">
-                      {p.bestSeller ? '★' : <span className="cw-danger-text">off</span>}
+                      {p.bestSeller ? '★' : <span className="cw-danger-text">—</span>}
                     </td>
                     <td>
                       <div className="cw-dashboard-row-actions">

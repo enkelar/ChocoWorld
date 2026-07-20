@@ -260,7 +260,7 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
             <input
               type="checkbox"
               checked={form.bestSeller}
-              onChange={(e) => update('bestSeeller', e.target.checked)}
+              onChange={(e) => update('bestSeller', e.target.checked)}
             />
             ★ Best Seller
           </label>

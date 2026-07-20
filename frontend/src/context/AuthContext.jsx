@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
       return;
     }
     api
-      .get('/auth/me')
+      .get('/auth/me', { auth: true })
       .then((data) => setUser(data.user))
       .catch(() => localStorage.removeItem('cw_token'))
       .finally(() => setLoading(false));
