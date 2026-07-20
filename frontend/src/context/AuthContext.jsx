@@ -8,30 +8,25 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('cw_token');
-    if (!token) {
-
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(false);
-      return;
-    }
     api
-      .get('/auth/me', { auth: true })
+      .get('/auth/me')
       .then((data) => setUser(data.user))
-      .catch(() => localStorage.removeItem('cw_token'))
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 
   async function login(email, password) {
     const data = await api.post('/auth/login', { email, password });
-    localStorage.setItem('cw_token', data.token);
     setUser(data.user);
     return data.user;
   }
 
-  function logout() {
-    localStorage.removeItem('cw_token');
-    setUser(null);
+  async function logout() {
+    try {
+      await api.post('/auth/logout', {});
+    } finally {
+      setUser(null);
+    }
   }
 
   return (

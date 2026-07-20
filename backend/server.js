@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import "dotenv/config";
 import express from 'express';
 import cors from 'cors';
@@ -16,9 +17,11 @@ app.use(compression());
 app.use(
   cors({
     origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+    credentials: true,
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api', routes);
 

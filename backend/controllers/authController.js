@@ -8,6 +8,13 @@ export function signToken(user) {
   });
 }
 
+const COOKIE_OPTIONS = {
+   httpOnly: true,
+   secure: process.env.NODE_ENV === 'production',
+   sameSite: 'lax',
+ };
+ const COOKIE_MAX_AGE_MS = 4 * 60 * 60 * 1000; // keep in sync with signToken's expiresIn
+
 // POST /api/auth/login
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -20,11 +27,19 @@ export const login = asyncHandler(async (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
+  res.cookie('token', signToken(user), { ...COOKIE_OPTIONS, maxAge: COOKIE_MAX_AGE_MS });
+
   res.json({
     token: signToken(user),
     user: { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin },
   });
 });
+
+// POST /api/auth/logout
+ export const logout = asyncHandler(async (req, res) => {
+   res.clearCookie('token', COOKIE_OPTIONS);
+   res.json({ message: 'Logged out' });
+ });
 
 // GET /api/auth/me  (protected)
 export const me = asyncHandler(async (req, res) => {
@@ -38,4 +53,4 @@ export const me = asyncHandler(async (req, res) => {
   });
 });
 
-export default { login, me };
+export default { login, logout, me };
