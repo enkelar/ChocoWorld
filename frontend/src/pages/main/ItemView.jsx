@@ -52,7 +52,7 @@ export function ItemView() {
             <div className="cw-item-head">
               <div>
                 <span className="eyebrow" style={{ marginBottom: 4 }}>
-                  {product.category}
+                  {categoryLabel}
                 </span>
                 <h1 className="font-serif">{localize(product, 'name', lang)}</h1>
               </div>
@@ -82,7 +82,7 @@ export function ItemView() {
               )}
             </div>
 
-            {!product.bestSeller && (
+            {product.bestSeller && (
               <p className="cw-item-bestSeller">★ Best Seller</p>
             )}
           </div>

@@ -21,11 +21,7 @@ const categorySchema = new mongoose.Schema(
 
 categorySchema.pre('validate', function () {
   if (this.label && !this.slug) {
-    this.slug = this.label
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    this.slug = slugify(this.label);
   }
 });
 

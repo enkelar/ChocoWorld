@@ -60,6 +60,10 @@ export const deleteImage = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'key is required' });
   }
 
+  if (!key.startsWith('products/') || key.includes('..')) {
+   return res.status(400).json({ message: 'Invalid key' });
+  }
+
   await r2Client.send(
     new DeleteObjectCommand({ Bucket: BUCKET, Key: key })
   );
