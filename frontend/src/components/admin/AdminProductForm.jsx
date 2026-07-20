@@ -35,9 +35,15 @@ function normalizeProduct(initial) {
   };
 }
 
+
 export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
   const { data: categories, isLoading: categoriesLoading, error: categoriesError } =
-    useCategories();
+  useCategories();
+  
+  function handleRemoveImage() {
+    update('image', '');
+    setUploadError('');
+  }
 
   const [form, setForm] = useState(() =>
     initial ? normalizeProduct(initial) : EMPTY
@@ -150,36 +156,49 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
         </label>
       </div>
 
-      <div className="cw-pform-grid">
-        <label>
-          Image URL
-          <input
-            value={form.image}
-            onChange={(e) => update('image', e.target.value)}
-            placeholder="Paste a URL, or upload a photo below"
-          />
-        </label>
-        <div className="cw-pform-upload">
-          {form.image && (
-            <div className="cw-pform-preview">
-              <img src={form.image} alt="Product preview" />
-            </div>
-          )}
-          <label className="cw-pform-upload-btn">
-            {uploading ? 'Uploading…' : 'Upload photo from device'}
+     <div className="cw-pform-image-section">
+        <span className="cw-pform-image-label">Product image</span>
+        <div className="cw-pform-image-row">
+          <div className={`cw-pform-image-preview${form.image ? '' : ' is-empty'}`}>
+            {form.image ? (
+              <>
+                <img src={form.image} alt="Product preview" />
+                <button
+                  type="button"
+                  className="cw-pform-image-remove"
+                  onClick={handleRemoveImage}
+                  aria-label="Remove image"
+                  title="Remove image"
+                >
+                  ✕
+                </button>
+              </>
+            ) : (
+              <span className="cw-pform-image-placeholder">No image</span>
+            )}
+          </div>
+
+          <div className="cw-pform-image-controls">
+            <label className="cw-pform-upload-btn">
+              {uploading ? 'Uploading…' : form.image ? 'Replace photo' : 'Upload photo'}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                onChange={handleFileChange}
+                disabled={uploading}
+                hidden
+              />
+            </label>
             <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              onChange={handleFileChange}
-              disabled={uploading}
-              hidden
+              className="cw-pform-image-url"
+              value={form.image}
+              onChange={(e) => update('image', e.target.value)}
+              placeholder="or paste an image URL"
             />
-          </label>
-          {uploadError && <span className="cw-pform-error">{uploadError}</span>}
+            {uploadError && <span className="cw-pform-error">{uploadError}</span>}
+          </div>
         </div>
       </div>
-
-
 
       <label>
         Ingredients (English)
