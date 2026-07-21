@@ -63,7 +63,13 @@ export function CategoryView() {
           <EmptyState label={t('category_empty')} hint={t('category_empty_hint')} />
         )}
 
-        {items.length > 0 && <ProductGrid products={items} />}
+        {items.length > 0 && (
+          <ProductGrid
+            products={items}
+            originPath={`/category/${slug}`}
+            originLabel={localize(category, 'label', lang)}
+          />
+        )}
       </div>
     </main>
   );

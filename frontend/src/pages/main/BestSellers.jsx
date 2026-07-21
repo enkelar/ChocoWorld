@@ -28,7 +28,14 @@ export function BestSellers() {
           <EmptyState label="No best sellers yet" hint="Check back soon." />
         )}
 
-        {items.length > 0 && <ProductGrid products={items} />}
+        {items.length > 0 && (
+         <ProductGrid
+           products={items}
+           originPath="/best-sellers"
+           originLabel={t('best_sellers_title')}
+         />
+       )}
+
       </div>
     </main>
   );

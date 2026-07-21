@@ -30,7 +30,12 @@ export function FeaturedSection({ products = [], isLoading = false }) {
                 </div>
               ))
             : products.map((p) => (
-                <Link key={p._id} to={`/product/${p.slug}`} className="cw-featured-card">
+                <Link
+                  key={p._id}
+                  to={`/product/${p.slug}`}
+                  state={{ from: '/', fromLabel: t('nav_home') }}
+                  className="cw-featured-card"
+                >
                   <div className="cw-featured-img">
                     <img
                       src={p.image || getPlaceholderImage(p.category)}

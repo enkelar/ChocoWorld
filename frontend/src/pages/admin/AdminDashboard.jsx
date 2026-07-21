@@ -6,8 +6,7 @@ import { useCategories } from '../../hooks/useCategories';
 import { AdminProductForm } from '../../components/admin/AdminProductForm';
 import { LoadingState } from '../../components/shared/States';
 import { api } from '../../lib/api';
-import { runMutation } from '../../lib/fetchCache';
-import { AdminModal } from '../../components/admin/AdminModal';
+import { useAdminCrud } from '../../hooks/useAdminCrud';import { AdminModal } from '../../components/admin/AdminModal';
 import './AdminDashboard.css';
 
 export function AdminDashboard() {
@@ -25,8 +24,14 @@ export function AdminDashboard() {
 
   const { data: categories } = useCategories();
   const [editing, setEditing] = useState(null); // null | 'new' | product
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
+  const { submitting, error, handleSubmit: submit, handleDelete } = useAdminCrud({
+    createFn: (values) => api.post('/products', values),
+    updateFn: (id, values) => api.put(`/products/${id}`, values),
+    deleteFn: (id) => api.delete(`/products/${id}`),
+    invalidateKeys: ['/products', '/menu'],
+    refetch,
+    labelOf: (p) => p.name,
+  });
 
   const filtered = useMemo(() => {
     return (products ?? []).filter((p) => {
@@ -41,31 +46,8 @@ export function AdminDashboard() {
   }
 
   async function handleSubmit(values) {
-    setSubmitting(true);
-    setError('');
-    try {
-      if (editing && editing !== 'new') {
-        await runMutation(() => api.put(`/products/${editing._id}`, values), ['/products', '/menu']);
-      } else {
-        await runMutation(() => api.post('/products', values), ['/products', '/menu']);
-      }
-      setEditing(null);
-      refetch();
-    } catch (err) {
-      setError(err.message || 'Could not save product');
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  async function handleDelete(product) {
-    if (!window.confirm(`Delete "${product.name}"? This cannot be undone.`)) return;
-    try {
-      await runMutation(() => api.delete(`/products/${product._id}`), ['/products', '/menu']);
-      refetch();
-    } catch (err) {
-      setError(err.message || 'Could not delete product');
-    }
+    const ok = await submit(editing, values);
+    if (ok) setEditing(null);
   }
 
   return (

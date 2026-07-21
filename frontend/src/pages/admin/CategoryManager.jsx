@@ -2,8 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createCategory, updateCategory, deleteCategory } from '../../lib/categories';
 import { useCategories } from '../../hooks/useCategories';
-import { runMutation } from '../../lib/fetchCache';
-import { CategoryForm } from '../../components/admin/CategoryForm';
+import { useAdminCrud } from '../../hooks/useAdminCrud';import { CategoryForm } from '../../components/admin/CategoryForm';
 import { LoadingState } from '../../components/shared/States';
 import { AdminModal } from '../../components/admin/AdminModal';
 import '../../pages/admin/AdminDashboard.css';
@@ -13,8 +12,14 @@ export default function CategoryManager() {
   const { data: categories, isLoading, isRefetching, refetch } = useCategories();
   const [editing, setEditing] = useState(null); // null | 'new' | category
   const [search, setSearch] = useState('');
-  const [error, setError] = useState('');
-  const [submitting, setSubmitting] = useState(false);
+  const { submitting, error, handleSubmit: submit, handleDelete } = useAdminCrud({
+    createFn: createCategory,
+    updateFn: updateCategory,
+    deleteFn: deleteCategory,
+    invalidateKeys: ['/categories', '/menu'],
+    refetch,
+    labelOf: (cat) => cat.label,
+  });
 
   const filtered = useMemo(() => {
     return (categories ?? []).filter((c) =>
@@ -23,31 +28,8 @@ export default function CategoryManager() {
   }, [categories, search]);
 
   async function handleSubmit(values) {
-    setSubmitting(true);
-    setError('');
-    try {
-      if (editing && editing !== 'new') {
-        await runMutation(() => updateCategory(editing._id, values), ['/categories', '/menu']);
-      } else {
-        await runMutation(() => createCategory(values), ['/categories', '/menu']);
-      }
-      setEditing(null);
-      refetch();
-    } catch (err) {
-      setError(err.message || 'Could not save category');
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  async function handleDelete(cat) {
-    if (!window.confirm(`Delete "${cat.label}"? Products using it must be reassigned first.`)) return;
-    try {
-      await runMutation(() => deleteCategory(cat._id), ['/categories', '/menu']);
-      refetch();
-    } catch (err) {
-      setError(err.message || 'Could not delete category');
-    }
+    const ok = await submit(editing, values);
+    if (ok) setEditing(null);
   }
 
   return (

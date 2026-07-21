@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useFormState } from '../../hooks/useFormState';
 import { useCategories } from '../../hooks/useCategories';
 import { api } from '../../lib/api';
 import './AdminProductForm.css';
@@ -45,22 +46,16 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     setUploadError('');
   }
 
-  const [form, setForm] = useState(() =>
-    initial ? normalizeProduct(initial) : EMPTY
-  );
+  const [form, update, setForm] = useFormState(EMPTY, initial ? normalizeProduct(initial) : null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
   useEffect(() => {
     if (categories?.length) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm((f) => (f.category ? f : { ...f, category: categories[0].slug }));
     }
-  }, [categories]);
+  }, [categories, setForm]);
 
-  function update(field, value) {
-    setForm((f) => ({ ...f, [field]: value }));
-  }
 
   async function handleFileChange(e) {
     const file = e.target.files?.[0];

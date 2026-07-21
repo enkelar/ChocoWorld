@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation  } from 'react-router-dom';
 import { LoadingState, EmptyState } from '../../components/shared/States';
 import { useProductBySlug } from '../../hooks/useProducts';
 import { useCategories } from '../../hooks/useCategories';
@@ -9,12 +9,16 @@ import './ItemView.css';
 
 export function ItemView() {
   const { slug } = useParams();
+  const location = useLocation();
   const { data: product, isLoading, error } = useProductBySlug(slug);
   const { data: categories } = useCategories();
   const { lang, t } = useLanguage();
   
   const categoryObj = categories?.find((c) => c.slug === product?.category);
   const categoryLabel = categoryObj ? localize(categoryObj, 'label', lang) : product?.category;
+
+  const backPath = location.state?.from || `/category/${product?.category}`;
+  const backLabel = location.state?.fromLabel || categoryLabel;
 
   if (isLoading) {
     return (
@@ -40,10 +44,9 @@ export function ItemView() {
   return (
     <main className="cw-item-page">
       <div className="container cw-item-inner">
-        <Link to={`/category/${product.category}`} className="cw-item-back">
-          <span aria-hidden>←</span> {t('item_back_to')} {categoryLabel}
+        <Link to={backPath} className="cw-item-back">
+          <span aria-hidden>←</span> {t('item_back_to')} {backLabel}
         </Link>
-
         <article className="cw-item-card">
           <div className="cw-item-image">
             <img

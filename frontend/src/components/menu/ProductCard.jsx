@@ -5,13 +5,14 @@ import { localize } from '../../lib/localize';
 import { getPlaceholderImage } from '../../lib/placeholders';
 import './ProductCard.css';
 
-export function ProductCard({ product, index = 0 }) {
+export function ProductCard({ product, index = 0, originPath, originLabel }) {
   const { lang } = useLanguage();
   const [loaded, setLoaded] = useState(false);
 
   return (
     <Link
       to={`/product/${product.slug}`}
+      state={originPath ? { from: originPath, fromLabel: originLabel } : undefined}
       className="cw-product-card animate-velvet-reveal"
       style={{ animationDelay: `${index * 100}ms` }}
     >

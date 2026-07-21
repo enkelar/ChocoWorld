@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFormState } from "../../hooks/useFormState";
 
 const EMPTY = { 
   label: "", 
@@ -10,12 +10,9 @@ const EMPTY = {
 };
 
 export function CategoryForm({ initial, onSubmit, onCancel, submitting }) {
-  const [form, setForm] = useState(() => ({ ...EMPTY, ...(initial || {}) }));
-
-  function update(field, value) {
-    setForm((f) => ({ ...f, [field]: value }));
-  }
-
+  
+  const [form, update] = useFormState(EMPTY, initial);
+  
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit({
