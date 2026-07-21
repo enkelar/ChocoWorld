@@ -7,12 +7,29 @@ import helmet from 'helmet';
 import connectDB from './db.js';
 import errorHandler from './middleware/errorHandler.js';
 import routes from './routes/index.js';
+import validateEnv from './utils/validateEnv.js';
 
+validateEnv();
 const app = express();
 
 connectDB();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", 'data:', process.env.R2_PUBLIC_URL || '', 'https://images.unsplash.com'],
+        styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        connectSrc: ["'self'"],
+        frameSrc: ["'self'", 'https://www.google.com'], // contact page map embeds
+        scriptSrc: ["'self'"],
+      },
+    },
+    crossOriginResourcePolicy: { policy: 'cross-origin' }, // needed for R2-hosted images to render
+  })
+);
 app.use(compression());
 app.use(
   cors({
