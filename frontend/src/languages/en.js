@@ -21,13 +21,12 @@ export default {
   category_not_found: 'Category not found',
   back_to_menu: 'Back to menu',
   item_not_found: 'Product not found',
-  item_unavailable: 'Currently unavailable.',
   item_ingredients: 'Ingredients',
   item_allergens: 'Allergen notice',
   featured_title: 'Signature Series',
   featured_link: 'See full menu →',
   best_sellers_title: 'Best Sellers',
- best_sellers_tagline: 'Tap to see what everyone loves',
+  best_sellers_tagline: 'Tap to see what everyone loves',
 
   story_eyebrow: 'ChocoWorld Kosova',
   story_title:

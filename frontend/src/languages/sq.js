@@ -27,7 +27,7 @@ export default {
   featured_title: 'Specialitetet tona',
   featured_link: 'Shiko menunë e plotë →',
   best_sellers_title: 'Më të Kërkuarat',
- best_sellers_tagline: 'Prek për të parë çfarë duan të gjithë',
+  best_sellers_tagline: 'Prek për të parë çfarë duan të gjithë',
 
    story_eyebrow: 'ChocoWorld Kosova',
   story_title:
@@ -39,11 +39,9 @@ export default {
   contact_label_address_name: 'Pallati i Rinisë dhe Sporteve',
   contact_label_hours: 'Orari',
   contact_label_contact: 'Na kontaktoni',
-  contact_hours_line1: 'Hën – Pre · 08:00 – 22:00',
-  contact_hours_line2: 'Sht – Die · 09:00 – 23:00',
+  contact_hours_line1: 'Hën – Die · 08:30 – 23:00',
   footer_visit_title: 'Na Vizitoni',
   footer_hours_row1_label: 'Hën — Die',
-  footer_hours_row2_label: 'Sht — Die',
   footer_quote:
     '"Çokollata është një gjuhë e vetja — një bisedë e heshtur mes artizanit dhe kënaqësisë."',
   footer_crafted: 'Krijuar me pasion në Prishtinë',
