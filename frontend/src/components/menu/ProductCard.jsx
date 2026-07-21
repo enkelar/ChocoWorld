@@ -20,6 +20,8 @@ export function ProductCard({ product, index = 0 }) {
           src={product.image || getPlaceholderImage(product.category)}
           alt={localize(product, 'name', lang)}
           loading="lazy"
+          width="400"
+          height="400"
           className={loaded ? 'is-loaded' : ''}
           onLoad={() => setLoaded(true)}
         />

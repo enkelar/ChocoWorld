@@ -46,7 +46,12 @@ export function ItemView() {
 
         <article className="cw-item-card">
           <div className="cw-item-image">
-            <img src={product.image || getPlaceholderImage(product.category)} alt={localize(product, 'name', lang)} />
+            <img
+              src={product.image || getPlaceholderImage(product.category)}
+              alt={localize(product, 'name', lang)}
+              width="800"
+              height="800"
+            />
           </div>
           <div className="cw-item-body">
             <div className="cw-item-head">

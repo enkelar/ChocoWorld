@@ -223,3 +223,13 @@
     justify-content: center;
   }
 }
+
+.cw-dashboard-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: rgba(42, 24, 16, 0.6);
+}

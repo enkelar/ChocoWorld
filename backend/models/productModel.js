@@ -18,5 +18,7 @@ const productSchema = new mongoose.Schema(
 );
 
 productSchema.index({ category: 1 });
+productSchema.index({ featured: 1, displayOrder: 1 });
+productSchema.index({ bestSeller: 1, displayOrder: 1 });
 
 export default mongoose.model('Product', productSchema);

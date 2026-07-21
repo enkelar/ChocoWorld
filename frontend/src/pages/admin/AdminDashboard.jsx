@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useMenuProducts } from '../../hooks/useProducts';
+import { useMenuProductsPaged } from '../../hooks/useProducts';
 import { useCategories } from '../../hooks/useCategories';
 import { AdminProductForm } from '../../components/admin/AdminProductForm';
 import { LoadingState } from '../../components/shared/States';
@@ -12,22 +12,33 @@ import './AdminDashboard.css';
 
 export function AdminDashboard() {
   const { logout } = useAuth();
-  const { data: products, isLoading, isRefetching, refetch } = useMenuProducts();
+  const [page, setPage] = useState(1);
+  const [filterCat, setFilterCat] = useState('all');
+  const [search, setSearch] = useState('');
+
+  const { data, isLoading, isRefetching, refetch } = useMenuProductsPaged({
+    category: filterCat === 'all' ? undefined : filterCat,
+    page,
+    limit: 20,
+  });
+  const products = data?.products;
+
   const { data: categories } = useCategories();
   const [editing, setEditing] = useState(null); // null | 'new' | product
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
-  const [filterCat, setFilterCat] = useState('all');
 
   const filtered = useMemo(() => {
     return (products ?? []).filter((p) => {
-      if (filterCat !== 'all' && p.category !== filterCat) return false;
       if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [products, filterCat, search]);
+  }, [products, search]);
 
+  function handleCategoryChange(e) {
+    setFilterCat(e.target.value);
+    setPage(1);
+  }
 
   async function handleSubmit(values) {
     setSubmitting(true);
@@ -91,7 +102,7 @@ export function AdminDashboard() {
           <select
             className="cw-dashboard-select"
             value={filterCat}
-            onChange={(e) => setFilterCat(e.target.value)}
+            onChange={handleCategoryChange}
           >
             <option value="all">All categories</option>
             {(categories ?? []).map((c) => (
@@ -170,6 +181,28 @@ export function AdminDashboard() {
                 )}
               </tbody>
             </table>
+
+            {data?.totalPages > 1 && (
+              <div className="cw-dashboard-pager">
+                <button
+                  className="btn btn-outline"
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => p - 1)}
+                >
+                  ← Previous
+                </button>
+                <span>
+                  Page {data.page} of {data.totalPages}
+                </span>
+                <button
+                  className="btn btn-outline"
+                  disabled={page >= data.totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                >
+                  Next →
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
