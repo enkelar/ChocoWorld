@@ -16,11 +16,12 @@ export function ProductCard({ product, index = 0, originPath, originLabel }) {
       className="cw-product-card animate-velvet-reveal"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="cw-product-img">
+      <div className={`cw-product-img${loaded ? ' cw-product-img--loaded' : ''}`}>
         <img
-          src={product.image || getPlaceholderImage(product.category)}
+          src={product.thumbnail || product.image || getPlaceholderImage(product.category)}
           alt={localize(product, 'name', lang)}
           loading="lazy"
+          decoding="async"
           width="400"
           height="400"
           className={loaded ? 'is-loaded' : ''}

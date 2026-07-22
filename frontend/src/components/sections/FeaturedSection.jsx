@@ -38,9 +38,10 @@ export function FeaturedSection({ products = [], isLoading = false }) {
                 >
                   <div className="cw-featured-img">
                     <img
-                      src={p.image || getPlaceholderImage(p.category)}
+                      src={p.thumbnail || p.image || getPlaceholderImage(p.category)}
                       alt={localize(p, 'name', lang)}
                       loading="lazy"
+                      decoding="async"
                       width="450"
                       height="563"
                     />

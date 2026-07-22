@@ -9,6 +9,7 @@ export const productCreateSchema = Joi.object({
   ingredientsSq: Joi.string().allow('').max(500),
   allergens: Joi.array().items(Joi.string().trim()),
   image: Joi.string().uri().allow('', null),
+  thumbnail: Joi.string().uri().allow('', null),
   displayOrder: Joi.number().integer(),
   featured: Joi.boolean(),
   bestSeller: Joi.boolean(),

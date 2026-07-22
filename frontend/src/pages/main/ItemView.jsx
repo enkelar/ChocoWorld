@@ -54,6 +54,8 @@ export function ItemView() {
               alt={localize(product, 'name', lang)}
               width="800"
               height="800"
+              fetchpriority="high"
+              decoding="async"
             />
           </div>
           <div className="cw-item-body">

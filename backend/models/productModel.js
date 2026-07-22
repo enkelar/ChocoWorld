@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema(
     ingredientsSq: { type: String, trim: true, default: '' },
     allergens: { type: [String], default: [] },
     image: { type: String, default: null },
+    thumbnail: { type: String, default: null },
     displayOrder: { type: Number, default: 0 },
     featured: { type: Boolean, default: false },
     bestSeller: { type: Boolean, default: false },

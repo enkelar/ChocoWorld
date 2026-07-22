@@ -12,6 +12,7 @@ const EMPTY = {
   ingredientsSq: '',
   allergens: '',
   image: '',
+  thumbnail: '',
   displayOrder: 0,
   featured: false,
   bestSeller: true,
@@ -29,6 +30,7 @@ function normalizeProduct(initial) {
       ? initial.allergens.join(', ')
       : '',
     image: initial.image ?? '',
+    thumbnail: initial.thumbnail ?? '',
     displayOrder: initial.displayOrder ?? 0,
     price: initial.price ?? 0,
     featured: !!initial.featured,
@@ -43,6 +45,7 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
   
   function handleRemoveImage() {
     update('image', '');
+    update('thumbnail', '');
     setUploadError('');
   }
 
@@ -56,6 +59,35 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     }
   }, [categories, setForm]);
 
+ // Resizes+re-encodes a File as WebP at a given max dimension/quality.
+ async function resizeImageFile(file, maxDim, quality) {
+   const bitmap = await createImageBitmap(file);
+   const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+   const canvas = document.createElement('canvas');
+   canvas.width = Math.round(bitmap.width * scale);
+   canvas.height = Math.round(bitmap.height * scale);
+   canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+   return new Promise((resolve) => {
+     canvas.toBlob(
+       (blob) => resolve(blob ? new File([blob], 'upload.webp', { type: 'image/webp' }) : file),
+       'image/webp',
+       quality
+     );
+   });
+ }
+
+ async function uploadOne(file) {
+   const { uploadURL, publicUrl } = await api.post('/uploads/image-url', {
+     contentType: file.type,
+   });
+   const putRes = await fetch(uploadURL, {
+     method: 'PUT',
+     headers: { 'Content-Type': file.type },
+     body: file,
+   });
+   if (!putRes.ok) throw new Error('Image upload to storage failed.');
+   return publicUrl;
+ }
 
   async function handleFileChange(e) {
     const file = e.target.files?.[0];
@@ -64,24 +96,17 @@ export function AdminProductForm({ initial, onSubmit, onCancel, submitting }) {
     setUploadError('');
     setUploading(true);
     try {
-      // 1) Get presigned upload URL from your server
-      const { uploadURL, publicUrl } = await api.post('/uploads/image-url', {
-        contentType: file.type,
-      });
-
-      // 2) Upload file directly to R2 using the presigned URL
-      const putRes = await fetch(uploadURL, {
-        method: 'PUT',
-        headers: { 'Content-Type': file.type },
-        body: file,
-      });
-
-      if (!putRes.ok) {
-        throw new Error('Image upload to storage failed.');
-      }
-
-      // 3) Use the public URL in the form
-      update('image', publicUrl);
+      // Produce two sizes: a small one for grid thumbnails, a larger one for the detail page.
+     const [thumbFile, fullFile] = await Promise.all([
+       resizeImageFile(file, 480, 0.75),
+       resizeImageFile(file, 1600, 0.82),
+     ]);
+     const [thumbnailUrl, fullUrl] = await Promise.all([
+       uploadOne(thumbFile),
+       uploadOne(fullFile),
+     ]);
+     update('image', fullUrl);
+     update('thumbnail', thumbnailUrl);
     } catch (err) {
       setUploadError(err.message || 'Upload failed');
     } finally {

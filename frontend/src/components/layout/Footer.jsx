@@ -12,6 +12,11 @@ export function Footer() {
           <div>
             <h4 className="font-serif cw-footer-title">{t('footer_visit_title')}</h4>
             <p className="cw-footer-address">
+              <br></br>
+              Prishtina Mall, Food Court
+              <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&
+              <br/>
               Rruga Garibaldi, nr. 12
               <br />
               10000 Prishtinë, Kosova

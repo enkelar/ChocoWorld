@@ -1,3 +1,4 @@
+import AboutHero from '../../assets/AboutHero.webp';
 import './About.css';
 
 export function About() {
@@ -20,7 +21,7 @@ export function About() {
           </div>
           <div className="cw-about-hero-media">
             <img
-              src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1200&auto=format&fit=crop"
+              src= {AboutHero}
               alt="Artisan dark chocolate pieces and cocoa beans arranged on marble"
               width={1200}
               height={800}
@@ -38,19 +39,17 @@ export function About() {
         <div className="container cw-about-beginning-inner">
           <span className="eyebrow cw-about-beginning-eyebrow">The Beginning</span>
           <h2 className="font-serif cw-about-beginning-title">
-            A love for <span className="italic">fresh, handcrafted</span> chocolate.
+            <span className="italic">Freshness</span> Freshness is where our story begins.
           </h2>
           <div className="cw-about-beginning-text">
             <p>
-              It started in a small kitchen in Prishtinë, working with real chocolate,
-              fresh cream, and recipes passed down through family notebooks. What began as
-              weekend experiments quickly grew into a love for quality — for getting every
-              texture, every flavor, just right.
+              At ChocoWorld, we believe desserts are more than just something sweet, 
+              they’re an experience. Every crêpe, waffle, brownie, fresh fruit creation, 
+              and scoop of our handmade gelato is crafted with premium ingredients and prepared fresh to order.
             </p>
             <p>
-              In 2019, Choco World Kosova opened its first doors on Rruga Garibaldi. The
-              mission was simple then, and it still is now: keep things fresh, make chocolate
-              the star, and give every guest a warm welcome, like they're stepping into our home.
+              Combined with warm hospitality and genuine service, our goal is simple: 
+              to create a place where every visit feels special and every dessert leaves a lasting impression.
             </p>
           </div>
         </div>

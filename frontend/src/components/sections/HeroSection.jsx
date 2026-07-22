@@ -26,6 +26,10 @@ export function HeroSection() {
           <img
             src={heroImg}
             alt="ChocoWorld ambiance"
+            width="960"
+            height="640"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
       </div>
