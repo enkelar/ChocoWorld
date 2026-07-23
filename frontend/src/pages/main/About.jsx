@@ -1,22 +1,23 @@
+import { useLanguage } from '../../context/LanguageContext';
 import AboutHero from '../../assets/AboutHero.webp';
 import './About.css';
 
 export function About() {
+
+  const { t } = useLanguage();
+
   return (
     <main className="cw-about-page">
       {/* Hero */}
       <section className="cw-about-hero">
         <div className="container cw-about-hero-inner">
           <div className="cw-about-hero-copy">
-            <span className="eyebrow">Our Story</span>
+            <span className="eyebrow">{t('about_hero_eyebrow')}</span>
             <h1 className="font-serif cw-about-hero-title">
-              At <span className="italic">ChocoWorld</span>, freshness is at the heart of everything we do.
+              {t('about_hero_title')}            
             </h1>
             <p className="cw-about-hero-text">
-              From fresh fruit to handcrafted desserts, crêpes, pancakes, brownies, and our own
-              handmade gelato — we bring you premium chocolate treats that taste as delicious as
-              they look. Every dessert is made with quality, warmth, and a little modern flair,
-              because every bite should be memorable.
+              {t('about_hero_text')}
             </p>
           </div>
           <div className="cw-about-hero-media">
@@ -28,7 +29,7 @@ export function About() {
               loading="lazy"
             />
             <div className="cw-about-hero-quote">
-              <p className="font-serif italic">"Cocoa is our language."</p>
+              <p className="font-serif italic">{t('about_hero_quote')}</p>
             </div>
           </div>
         </div>
@@ -37,19 +38,16 @@ export function About() {
       {/* The Beginning */}
       <section className="cw-about-beginning">
         <div className="container cw-about-beginning-inner">
-          <span className="eyebrow cw-about-beginning-eyebrow">The Beginning</span>
+          <span className="eyebrow cw-about-beginning-eyebrow">{t('about_beginning_eyebrow')}</span>
           <h2 className="font-serif cw-about-beginning-title">
-            <span className="italic">Freshness</span> Freshness is where our story begins.
+            {t('about_beginning_title')}
           </h2>
           <div className="cw-about-beginning-text">
             <p>
-              At ChocoWorld, we believe desserts are more than just something sweet, 
-              they’re an experience. Every crêpe, waffle, brownie, fresh fruit creation, 
-              and scoop of our handmade gelato is crafted with premium ingredients and prepared fresh to order.
+              {t('about_beginning_text1')}
             </p>
             <p>
-              Combined with warm hospitality and genuine service, our goal is simple: 
-              to create a place where every visit feels special and every dessert leaves a lasting impression.
+              {t('about_beginning_text2')}
             </p>
           </div>
         </div>
@@ -59,14 +57,14 @@ export function About() {
       <section className="cw-about-pillars">
         <div className="container">
           <div className="cw-about-pillars-head">
-            <span className="eyebrow">Our Philosophy</span>
-            <h2 className="font-serif">Made slowly. Served warmly.</h2>
+            <span className="eyebrow">{t('about_pillars_eyebrow')}</span>
+            <h2 className="font-serif">{t('about_pillars_title')}</h2>
           </div>
 
           <div className="cw-about-pillars-grid">
             <div className="cw-about-pillar">
               <span className="cw-about-pillar-icon" aria-hidden>🍫</span>
-              <h3 className="font-serif">Premium Chocolate</h3>
+              <h3 className="font-serif">{t('about_pillar1')}</h3>
               {/* <p>
                 We use real chocolate and cocoa from trusted producers. No shortcuts —
                 just honest, premium chocolate with a rich, clean taste.
@@ -74,7 +72,7 @@ export function About() {
             </div>
             <div className="cw-about-pillar">
               <span className="cw-about-pillar-icon" aria-hidden>🥞</span>
-              <h3 className="font-serif">Handcrafted, Always Fresh</h3>
+              <h3 className="font-serif">{t('about_pillar2')}</h3>
               {/* <p>
                 Every waffle is pressed when you order it. Every crêpe is folded by hand.
                 Fresh isn't a promise here — it's just how we work.
@@ -82,7 +80,7 @@ export function About() {
             </div>
             <div className="cw-about-pillar">
               <span className="cw-about-pillar-icon" aria-hidden>☕</span>
-              <h3 className="font-serif">A Warm Welcome</h3>
+              <h3 className="font-serif">{t('about_pillar3')}</h3>
               {/* <p>
                 We believe dessert should be enjoyed slowly. Our salon is a warm, modern space
                 made for lingering — slow sips, shared plates, and good company.
@@ -94,25 +92,23 @@ export function About() {
 
       <section className="cw-about-cta">
         <div className="container cw-about-cta-inner">
-          <span className="eyebrow">Visit Us</span>
-          <h2 className="font-serif">Come in. Linger. Leave happier.</h2>
+          <span className="eyebrow">{t('about_contact_eyebrow')}</span>
+          <h2 className="font-serif">{t('about_contact_title')}</h2>
           <p>
-            We're in the heart of Prishtinë, ready to welcome chocolate lovers, coffee drinkers,
-            dessert seekers, and anyone who believes fresh, handcrafted treats make life a
-            little sweeter.
+            {t('about_contact_text')}
           </p>
           <a
-            href="https://maps.google.com/?q=Rruga+Garibaldi+12+Prishtinë+Kosova"
+            href="https://www.google.com/maps/place/Youth+and+Sports+Center/@42.661219,21.1568458,18.48z/data=!4m15!1m8!3m7!1s0x13549ee4f18ba3fb:0x189f57f3727e8636!2sYouth+and+Sports+Center!8m2!3d42.6610999!4d21.1567011!10e1!16s%2Fm%2F0130sdbs!3m5!1s0x13549ee4f18ba3fb:0x189f57f3727e8636!8m2!3d42.6610999!4d21.1567011!16s%2Fm%2F0130sdbs?entry=ttu&g_ep=EgoyMDI2MDcyMC4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             rel="noreferrer"
             className="btn btn-primary"
           >
-            Get Directions <span aria-hidden>→</span>
+            {t('about_contact_button')} <span aria-hidden>→</span>
           </a>
           <div className="cw-about-cta-meta">
-            <p>Rruga Garibaldi, nr. 12 — 10000 Prishtinë, Kosova</p>
-            <p>Prishtina Mall, Food Court</p>
-            <p>Mon — Sun: 08:30 – 23:00 </p>
+            <p>{t('about_location')}</p>
+            <p>{t('contact_label_address_name2')}</p>
+            <p>{t('contact_hours_line1')} </p>
           </div>
         </div>
       </section>

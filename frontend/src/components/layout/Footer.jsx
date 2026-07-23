@@ -13,13 +13,14 @@ export function Footer() {
             <h4 className="font-serif cw-footer-title">{t('footer_visit_title')}</h4>
             <p className="cw-footer-address">
               <br></br>
-              Prishtina Mall, Food Court
+              <br/>
+              {t('contact_label_address_name')}
+              <br />
+              10000 Prishtinë, Kosova
               <br/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&
               <br/>
-              Rruga Garibaldi, nr. 12
-              <br />
-              10000 Prishtinë, Kosova
+              {t('contact_label_address_name2')}
             </p>
             <div className="cw-footer-hours">
               <div className="cw-footer-hours-row">

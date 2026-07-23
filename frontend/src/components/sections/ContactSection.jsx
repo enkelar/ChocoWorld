@@ -16,7 +16,7 @@ export function ContactSection() {
               <div>
                 <p className="cw-contact-label">{t('contact_label_address1')}</p>
                 <p>
-                  Prishtina Mall, Food Court
+                  {t('contact_label_address_name2')}
                   <br />
                   10000 Prishtinë, Kosova
                 </p>

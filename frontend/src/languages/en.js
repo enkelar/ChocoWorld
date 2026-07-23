@@ -36,6 +36,7 @@ export default {
   contact_label_address1: 'Address 1',
   contact_label_address2: 'Address 2',
   contact_label_address_name: 'Youth and Sports Center',
+  contact_label_address_name2: 'Prishtina Mall, Food Court',
   contact_label_hours: 'Hours',
   contact_label_contact: 'Get in touch',
   contact_hours_line1: 'Mon – Sun · 08:30 – 23:00',
@@ -49,4 +50,27 @@ export default {
   category_empty_hint: 'Check back soon.',
   item_loading: 'Loading item…',
   item_back_to: 'Back to',
+
+  about_hero_eyebrow: 'Our Story',
+  about_hero_title :'At ChocoWorld Kosova, freshness is at the heart of everything we do.',
+  about_hero_text: 
+    'From fresh fruit to handcrafted desserts, crêpes, pancakes, brownies, and our own handmade gelato — we bring you premium chocolate treats that taste as delicious as they look. Every dessert is made with quality, warmth, and a little modern flair, ecause every bite should be memorable.',
+  about_hero_quote: '"Cocoa is our language."',
+  about_beginning_eyebrow: 'The Beginning',
+  about_beginning_title: 'Freshness is where our story begins.',
+  about_beginning_text1: 
+    'At ChocoWorld, we believe desserts are more than just something sweet, they’re an experience. Every crêpe, waffle, brownie, fresh fruit creation, and scoop of our handmade gelato is crafted with premium ingredients and prepared fresh to order.',
+  about_beginning_text2: 
+  'Combined with warm hospitality and genuine service, our goal is simple: to create a place where every visit feels special and every dessert leaves a lasting impression.',
+  about_pillars_eyebrow: 'Our Philosophy',
+  about_pillars_title: 'Made slowly. Served warmly.',
+  about_pillar1: 'Premium Chocolate',
+  about_pillar2: 'Handcrafted, Always Fresh',
+  about_pillar3: 'A Warm Welcome',
+  about_contact_eyebrow:'Visit Us',
+  about_contact_title:'Come in. Linger. Leave happier.',
+  about_contact_text: 'We are in the heart of Prishtinë, ready to welcome chocolate lovers, coffee drinkers, dessert seekers, and anyone who believes fresh, handcrafted treats make life a little sweeter.',
+  about_contact_button: 'Get Directions',
+  about_location: 'Rruga Garibaldi, nr. 12 — 10000 Prishtinë, Kosova',
+
 };
