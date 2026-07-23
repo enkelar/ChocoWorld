@@ -15,7 +15,7 @@ const EMPTY = {
   thumbnail: '',
   displayOrder: 0,
   featured: false,
-  bestSeller: true,
+  bestSeller: false,
 };
 
 function normalizeProduct(initial) {

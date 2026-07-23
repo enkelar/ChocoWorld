@@ -12,7 +12,7 @@ export const loginLimiter = rateLimit({
 // Looser general-purpose limiter for the rest of the public API
 export const apiLimiter = rateLimit({
   windowMs: 60 * 1000,
-  limit: 120,
+  limit: 300,
   standardHeaders: true,
   legacyHeaders: false,
   message: { message: 'Too many requests. Please slow down.' },

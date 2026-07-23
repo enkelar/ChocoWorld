@@ -27,10 +27,11 @@ export const login = asyncHandler(async (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
-  res.cookie('token', signToken(user), { ...COOKIE_OPTIONS, maxAge: COOKIE_MAX_AGE_MS });
+  const token = signToken(user);
+  res.cookie('token', token, { ...COOKIE_OPTIONS, maxAge: COOKIE_MAX_AGE_MS });
 
   res.json({
-    token: signToken(user),
+    token,
     user: { id: user._id, name: user.name, email: user.email, isAdmin: user.isAdmin },
   });
 });

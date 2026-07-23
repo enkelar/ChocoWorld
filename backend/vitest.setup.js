@@ -2,6 +2,9 @@ import { beforeAll, afterAll, afterEach } from 'vitest';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
+process.env.R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'test-bucket';
+process.env.R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || 'https://pub-test.r2.dev';
+
 let mongod;
 
 beforeAll(async () => {

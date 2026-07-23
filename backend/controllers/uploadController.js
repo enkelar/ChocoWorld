@@ -55,6 +55,10 @@ export const getImageUploadUrl = asyncHandler(async (req, res) => {
 // DELETE /api/uploads (admin, body: { key })
 // Optional cleanup hook for orphaned files
 export const deleteImage = asyncHandler(async (req, res) => {
+  
+  if (!BUCKET) {
+    return res.status(500).json({ error: 'R2 is not configured on the server.' });
+  }
   const { key } = req.body;
   if (!key) {
     return res.status(400).json({ message: 'key is required' });
